@@ -1,32 +1,38 @@
 # Arquitectura
 
-## Organizacion general
+## Organización General
 
-La aplicacion esta organizada por responsabilidad:
+La aplicación se organiza por responsabilidad:
 
-- `src/app`: rutas, metadata, layout global y estilos base de Next.js App Router.
-- `src/components`: componentes reutilizables y neutrales del dominio, como `Button`, `Container`, `Section`, `Heading`, `Badge` y `ProductCard`.
-- `src/features`: modulos por area de negocio. `catalog` contiene la interfaz publica para consultar productos e inferir imagenes.
-- `src/config`: configuracion estable de la marca y del sitio.
-- `src/lib`: utilidades compartidas sin dependencia de UI.
-- `src/types`: contratos de dominio reutilizables.
-- `src/data`: fuentes temporales de datos.
-- `public/images`: assets publicos agrupados por tipo.
+- `src/app`: rutas, metadata, layout raíz y estilos globales.
+- `src/components`: componentes reutilizables. `layout` contiene estructura pública y `ui` contiene primitivas visuales.
+- `src/features`: módulos de negocio. `catalog` expone funciones de acceso a productos.
+- `src/config`: configuración tipada de marca, navegación y comercio.
+- `src/data`: fuente temporal de datos.
+- `src/lib`: utilidades compartidas.
+- `src/types`: contratos de dominio.
+- `public/images`: assets públicos.
 
-## Catalogo
+## Layout Público
 
-Los productos viven temporalmente en `src/data/products.ts` porque esta primera version no incluye backend, API, Prisma ni PostgreSQL. Usar TypeScript en vez de JSON permite:
+La estructura común vive en `PublicLayout` y compone:
 
-- validar la estructura con `Product`;
-- evitar datos incompletos durante el desarrollo;
-- mantener autocompletado y refactors seguros;
-- preparar una migracion posterior sin cambiar componentes.
+- `TopBar`
+- `SiteHeader`
+- contenido de página
+- `SiteFooter`
 
-Los componentes no importan `src/data/products.ts`. La unica capa que conoce esa fuente es `src/features/catalog/catalog.service.ts`.
+El menú mobile es un Client Component porque necesita estado local. El resto del layout se mantiene como Server Component.
 
-## Imagenes de producto
+## Catálogo
 
-El objeto `Product` no guarda nombres de imagenes. La ruta se infiere desde el SKU:
+Los productos viven temporalmente en `src/data/products.ts` porque esta etapa no incluye backend, API, Prisma ni PostgreSQL.
+
+Usar TypeScript permite validar el contrato `Product`, tener autocompletado y mantener refactors seguros. Los componentes no importan `products.ts`; acceden mediante `src/features/catalog`.
+
+## Imágenes
+
+El objeto `Product` no guarda nombres de imágenes. La ruta se infiere desde el SKU:
 
 ```ts
 getProductImagePath("SOL-CHA-0001");
@@ -38,16 +44,14 @@ Resultado:
 /images/products/SOL-CHA-0001/1.webp
 ```
 
-Esta convencion evita duplicar datos y facilita migrar luego a un origen centralizado de assets.
+## Migración A PostgreSQL
 
-## Migracion futura a PostgreSQL
+Cuando se incorpore persistencia:
 
-En la segunda etapa, `src/data/products.ts` sera reemplazado por una fuente persistente:
+1. Definir modelos con Prisma.
+2. Mapear entidades de base de datos al contrato usado por UI.
+3. Reemplazar la implementación interna de `catalog.service.ts`.
+4. Mantener estable la interfaz pública del catálogo.
+5. Agregar API routes o server actions solo cuando el panel o flujos dinámicos lo requieran.
 
-1. Crear modelos en PostgreSQL con Prisma.
-2. Mover `Product` hacia contratos derivados o alineados con el schema.
-3. Cambiar la implementacion interna de `src/features/catalog/catalog.service.ts`.
-4. Mantener estable la interfaz publica del catalogo para no modificar componentes.
-5. Agregar API routes o server actions segun las necesidades del panel administrador.
-
-La meta es que `ProductCard`, paginas y componentes de UI sigan recibiendo `Product` o DTOs equivalentes sin saber si los datos vienen de TypeScript, PostgreSQL o una API.
+La intención es que `ProductCard`, Home y páginas públicas no cambien por el origen de datos.

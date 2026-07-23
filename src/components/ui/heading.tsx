@@ -12,7 +12,7 @@ export function Heading({ as: Tag = "h2", children, className }: HeadingProps) {
   return (
     <Tag
       className={cn(
-        "font-display text-4xl font-normal leading-tight text-soluna-ink sm:text-5xl",
+        "font-display text-h2 font-medium text-foreground",
         className,
       )}
     >

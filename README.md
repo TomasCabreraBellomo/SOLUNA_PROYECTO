@@ -1,8 +1,8 @@
 # Soluna Storefront
 
-Base inicial para el catalogo web de Soluna Accesorios, una joyeria moderna enfocada en charms compatibles con pulseras tipo Pandora, pulseras, aros, anillos, brazaletes, cadenas, tobilleras, gorras y accesorios.
+Storefront público inicial para Soluna Accesorios, una tienda catálogo argentina de joyas y accesorios.
 
-Esta primera version no implementa e-commerce completo. El objetivo es dejar una arquitectura profesional, simple de mantener y preparada para crecer hacia catalogo completo, carrito, checkout, panel administrador y pagos.
+La etapa actual implementa el sistema visual, layout público, Home, navegación y componentes reutilizables. Todavía no incluye catálogo completo, backend, base de datos, carrito funcional, pagos, autenticación ni panel administrador.
 
 ## Stack
 
@@ -12,74 +12,112 @@ Esta primera version no implementa e-commerce completo. El objetivo es dejar una
 - Tailwind CSS
 - ESLint
 - Prettier
-- npm
+- Vitest + Testing Library
 - next/image
+- next/font
 - lucide-react
 
-## Estructura
+## Rutas Disponibles
+
+- `/`
+- `/productos`
+- `/ofertas`
+- `/cuida-tus-joyas`
+- `/testimonios`
+- `/como-comprar`
+
+Las rutas secundarias son placeholders visuales consistentes para evitar enlaces rotos mientras se construyen las próximas etapas.
+
+## Estructura Visual
+
+- Barra comercial superior.
+- Header sticky responsive con navegación desktop, menú mobile, búsqueda visual, carrito visual y WhatsApp.
+- Home con hero, categorías destacadas, productos destacados, beneficios, ofertas, cuidado de joyas, testimonios y CTA final.
+- Footer con navegación, categorías, envíos, pagos, Instagram, WhatsApp y ubicación general.
+
+## Estructura Del Proyecto
 
 ```txt
 src/
   app/
   components/
+    layout/
+    ui/
+  config/
+  data/
   features/
     catalog/
     cart/
     checkout/
     home/
+    jewelry-care/
     offers/
     testimonials/
-    jewelry-care/
-  config/
   lib/
+  test/
   types/
-  data/
+docs/
 public/
   images/
     brand/
     products/
     testimonials/
-docs/
 ```
 
-## Productos
+## Datos Comerciales
 
-Los productos iniciales viven en `src/data/products.ts` como datos TypeScript tipados. Los componentes no consumen ese archivo directamente: acceden mediante funciones expuestas por `src/features/catalog`.
+Los datos críticos viven en archivos tipados:
 
-Las imagenes de producto siguen esta convencion:
+- `src/config/site.ts`: marca, descripción, frase, ubicación e Instagram.
+- `src/config/navigation.ts`: navegación principal y categorías.
+- `src/config/commerce.ts`: WhatsApp, envíos, pagos y umbral de envío gratis.
+
+Para modificar WhatsApp, Instagram, medios de pago o envío, cambiar estas configuraciones y no los componentes.
+
+## Productos E Imágenes
+
+Los productos de ejemplo viven temporalmente en `src/data/products.ts`.
+
+Los componentes acceden a ellos mediante `src/features/catalog`, no importando datos directos.
+
+Convención de imágenes:
 
 ```txt
 public/images/products/{SKU}/{index}.webp
 ```
 
-Ejemplo:
+El logo real, cuando exista, debe ubicarse en:
 
 ```txt
-public/images/products/SOL-CHA-0001/1.webp
+public/images/brand/
 ```
+
+Mientras no haya logo real, `BrandLogo` muestra una marca temporal basada en texto.
 
 ## Comandos
 
 ```bash
 npm install
+npm run format
 npm run lint
+npm run typecheck
+npm run test
 npm run build
 npm run dev
 ```
 
 ## Roadmap
 
-- Catalogo navegable por categorias.
-- Pagina de detalle de producto.
-- Busqueda y filtros.
+- Catálogo navegable por categorías.
+- Página de detalle de producto.
+- Búsqueda y filtros.
 - Carrito.
-- Checkout.
-- Integracion con Mercado Pago.
+- Checkout por WhatsApp.
+- Integración con Mercado Pago.
 - Panel administrador.
 - PostgreSQL y Prisma.
-- Autenticacion para administracion.
-- Gestion real de stock, precios e imagenes.
+- Importación de productos desde Excel.
 
 ## Despliegue
 
-El proyecto esta preparado para desplegarse como aplicacion Next.js en Vercel u otra plataforma compatible con Node.js. En esta etapa no requiere variables de entorno ni servicios externos.
+El proyecto está preparado para desplegarse como aplicación Next.js. `NEXT_PUBLIC_SITE_URL` puede configurarse para completar `metadataBase` en producción.

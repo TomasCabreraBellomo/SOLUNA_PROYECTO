@@ -3,7 +3,7 @@ import type { MouseEventHandler, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
-type ButtonVariant = "primary" | "secondary";
+type ButtonVariant = "primary" | "secondary" | "ghost";
 
 type ButtonBaseProps = {
   children: ReactNode;
@@ -23,9 +23,10 @@ type ButtonProps = ButtonBaseProps & {
 
 const buttonStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-soluna-ink text-white shadow-soft hover:bg-soluna-graphite focus-visible:outline-soluna-gold",
+    "bg-primary text-primary-foreground shadow-soft hover:bg-primary-hover focus-visible:outline-ring",
   secondary:
-    "border border-soluna-silver/70 bg-white/80 text-soluna-ink hover:border-soluna-gold focus-visible:outline-soluna-gold",
+    "border border-border bg-surface text-foreground hover:border-accent-gold hover:bg-surface-muted focus-visible:outline-ring",
+  ghost: "text-foreground hover:bg-surface-muted focus-visible:outline-ring",
 };
 
 export function Button({
@@ -41,7 +42,7 @@ export function Button({
   "aria-label": ariaLabel,
 }: ButtonProps) {
   const classes = cn(
-    "inline-flex min-h-11 items-center justify-center rounded-full px-6 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
+    "inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
     buttonStyles[variant],
     className,
   );
