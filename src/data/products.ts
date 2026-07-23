@@ -1,0 +1,48 @@
+import type { Product } from "@/types/product";
+
+export const products: Product[] = [
+  {
+    sku: "SOL-CHA-0001",
+    name: "Charm Corazon Brilloso",
+    category: "charms",
+    description: "Charm delicado con brillo sutil para pulseras compatibles.",
+    price: 11900,
+    currency: "ARS",
+    materials: ["Acero", "Cristales"],
+    isNew: true,
+    isFeatured: true,
+  },
+  {
+    sku: "SOL-PUL-0001",
+    name: "Pulsera Mariposa",
+    category: "pulseras",
+    description: "Pulsera de acero con detalle femenino y terminacion pulida.",
+    price: 24800,
+    currency: "ARS",
+    materials: ["Acero quirurgico"],
+    isNew: true,
+    isFeatured: true,
+  },
+  {
+    sku: "SOL-ANI-0001",
+    name: "Anillo de Acero",
+    category: "anillos",
+    description: "Anillo minimalista de uso diario con acabado plateado.",
+    price: 9800,
+    currency: "ARS",
+    materials: ["Acero quirurgico"],
+    isNew: false,
+    isFeatured: false,
+  },
+  {
+    sku: "SOL-CAD-0001",
+    name: "Cadena Dorada",
+    category: "cadenas",
+    description: "Cadena dorada inoxidable para combinar sola o en capas.",
+    price: 16900,
+    currency: "ARS",
+    materials: ["Acero inoxidable"],
+    isNew: false,
+    isFeatured: true,
+  },
+];
