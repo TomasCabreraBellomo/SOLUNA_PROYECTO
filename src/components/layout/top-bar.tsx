@@ -9,7 +9,7 @@ export function TopBar() {
         <span className="hidden h-1 w-1 rounded-full bg-primary-foreground/50 sm:block" />
         <span>
           Envío gratis a sucursal desde{" "}
-          {formatCurrency(commerceConfig.freeShippingThreshold, "ARS")}
+          {formatCurrency(commerceConfig.freeShippingThreshold)}
         </span>
       </div>
     </div>

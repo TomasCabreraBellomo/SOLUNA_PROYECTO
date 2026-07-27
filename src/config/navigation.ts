@@ -13,11 +13,14 @@ export const mainNavigation: NavigationItem[] = [
 ];
 
 export const categoryNavigation: NavigationItem[] = [
-  { href: "/productos?categoria=charms", label: "Charms" },
-  { href: "/productos?categoria=pulseras", label: "Pulseras" },
-  { href: "/productos?categoria=aros", label: "Aros" },
-  { href: "/productos?categoria=anillos", label: "Anillos" },
-  { href: "/productos?categoria=brazaletes", label: "Brazaletes" },
-  { href: "/productos?categoria=cadenas", label: "Cadenas" },
-  { href: "/productos?categoria=gorras", label: "Gorras" },
+  { href: "/productos?category=charms", label: "Charms" },
+  {
+    href: "/productos?category=pulseras-para-charms",
+    label: "Pulseras para charms",
+  },
+  { href: "/productos?category=pulseras", label: "Pulseras" },
+  { href: "/productos?category=aros", label: "Aros" },
+  { href: "/productos?category=anillos", label: "Anillos" },
+  { href: "/productos?category=brazaletes", label: "Brazaletes" },
+  { href: "/productos?category=cadenas", label: "Cadenas" },
 ];

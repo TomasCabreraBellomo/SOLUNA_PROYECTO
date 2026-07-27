@@ -1,13 +1,8 @@
 import {
-  BadgeCheck,
   CircleDollarSign,
-  Gem,
-  Gift,
   HandHeart,
-  Heart,
   MessagesSquare,
   PackageCheck,
-  Ribbon,
   Sparkles,
   Star,
   Truck,
@@ -25,52 +20,10 @@ import { Heading } from "@/components/ui/heading";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { WhatsAppButton } from "@/components/whatsapp-button";
-import { getFeaturedProducts } from "@/features/catalog";
-
-const featuredCategories = [
-  {
-    href: "/productos?categoria=charms",
-    icon: Sparkles,
-    label: "Charms plata 925",
-    description: "Piezas para armar pulseras con significado.",
-  },
-  {
-    href: "/productos?categoria=pulseras",
-    icon: Gem,
-    label: "Pulseras para charms",
-    description: "Bases delicadas para combinar tus favoritos.",
-  },
-  {
-    href: "/productos?categoria=pulseras-acero",
-    icon: Heart,
-    label: "Pulseras de acero quirúrgico",
-    description: "Opciones resistentes para todos los días.",
-  },
-  {
-    href: "/productos?categoria=aros",
-    icon: Star,
-    label: "Aros",
-    description: "Detalles sutiles para completar el look.",
-  },
-  {
-    href: "/productos?categoria=anillos",
-    icon: BadgeCheck,
-    label: "Anillos",
-    description: "Brillo minimalista para manos protagonistas.",
-  },
-  {
-    href: "/productos?categoria=brazaletes",
-    icon: Ribbon,
-    label: "Brazaletes",
-    description: "Líneas pulidas con presencia elegante.",
-  },
-  {
-    href: "/productos?categoria=gorras",
-    icon: Gift,
-    label: "Gorras",
-    description: "Accesorios para sumar un toque urbano.",
-  },
-] as const;
+import {
+  getCategoriesWithProductCount,
+  getFeaturedProducts,
+} from "@/features/catalog";
 
 const benefits = [
   {
@@ -103,7 +56,8 @@ const careTips = [
 ] as const;
 
 export function HomePage() {
-  const featuredProducts = getFeaturedProducts().slice(0, 6);
+  const featuredProducts = getFeaturedProducts(6);
+  const featuredCategories = getCategoriesWithProductCount();
 
   return (
     <PublicLayout>
@@ -158,13 +112,19 @@ export function HomePage() {
       <Section className="bg-surface">
         <Container>
           <SectionHeading
-            description="Una primera guía visual para organizar el catálogo cuando sumemos navegación completa."
+            description="Categorías con productos visibles en el catálogo actual."
             eyebrow="Categorías"
             title="Destacados para empezar a explorar"
           />
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {featuredCategories.map((category) => (
-              <CategoryCard key={category.label} {...category} />
+              <CategoryCard
+                key={category.value}
+                description={category.description ?? "Explorá esta selección."}
+                href={`/productos?category=${category.value}`}
+                icon={category.icon}
+                label={category.label}
+              />
             ))}
           </div>
         </Container>
@@ -174,7 +134,7 @@ export function HomePage() {
         <Container>
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <SectionHeading
-              description="Productos de ejemplo conectados mediante la capa de catálogo."
+              description="Productos conectados mediante la capa de catálogo."
               eyebrow="Selección"
               title="Productos destacados"
             />

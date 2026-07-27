@@ -1,24 +1,23 @@
-export type ProductCategory =
-  | "charms"
-  | "pulseras"
-  | "aros"
-  | "anillos"
-  | "brazaletes"
-  | "cadenas"
-  | "tobilleras"
-  | "gorras"
-  | "accesorios";
+import type { ProductCategory } from "@/config/categories";
 
 export type Product = {
   sku: string;
+  slug: string;
   name: string;
   category: ProductCategory;
+  material?: string;
+  color?: string;
+  measurements?: string;
   description: string;
   price: number;
-  salePrice?: number;
-  currency: "ARS";
-  materials: string[];
+  offerPrice?: number;
   stock: number;
-  isNew: boolean;
-  isFeatured: boolean;
+  featured?: boolean;
+  visible?: boolean;
+  createdAt?: string;
+};
+
+export type ProductImage = {
+  src: string;
+  alt: string;
 };

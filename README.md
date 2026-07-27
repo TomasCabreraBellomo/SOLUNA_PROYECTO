@@ -1,8 +1,8 @@
 # Soluna Storefront
 
-Storefront público inicial para Soluna Accesorios, una tienda catálogo argentina de joyas y accesorios.
+Storefront público para Soluna Accesorios, una tienda catálogo argentina de joyas y accesorios ubicada en San Miguel de Tucumán.
 
-La etapa actual implementa el sistema visual, layout público, Home, navegación y componentes reutilizables. Todavía no incluye catálogo completo, backend, base de datos, carrito funcional, pagos, autenticación ni panel administrador.
+La etapa actual implementa catálogo funcional con búsqueda, filtros por URL, ordenamiento, páginas individuales de producto, galería, stock, relacionados y ofertas reales cuando existan. No incluye carrito funcional, checkout, backend, base de datos, pagos, autenticación ni panel administrativo.
 
 ## Stack
 
@@ -17,82 +17,58 @@ La etapa actual implementa el sistema visual, layout público, Home, navegación
 - next/font
 - lucide-react
 
-## Rutas Disponibles
+## Rutas
 
 - `/`
 - `/productos`
+- `/productos/[slug]`
 - `/ofertas`
 - `/cuida-tus-joyas`
 - `/testimonios`
 - `/como-comprar`
 
-Las rutas secundarias son placeholders visuales consistentes para evitar enlaces rotos mientras se construyen las próximas etapas.
+## Catálogo
 
-## Estructura Visual
+Los productos viven temporalmente en `src/data/products.ts` como TypeScript tipado. Los componentes no importan ese archivo directamente: consumen funciones de `src/features/catalog`.
 
-- Barra comercial superior.
-- Header sticky responsive con navegación desktop, menú mobile, búsqueda visual, carrito visual y WhatsApp.
-- Home con hero, categorías destacadas, productos destacados, beneficios, ofertas, cuidado de joyas, testimonios y CTA final.
-- Footer con navegación, categorías, envíos, pagos, Instagram, WhatsApp y ubicación general.
+Funciones principales:
 
-## Estructura Del Proyecto
+- `getVisibleProducts()`
+- `getCatalogProducts(filters)`
+- `getProductBySlug(slug)`
+- `getFeaturedProducts(limit?)`
+- `getOfferProducts(limit?)`
+- `getRelatedProducts(product, limit?)`
+- `getProductImagePaths(sku)`
 
-```txt
-src/
-  app/
-  components/
-    layout/
-    ui/
-  config/
-  data/
-  features/
-    catalog/
-    cart/
-    checkout/
-    home/
-    jewelry-care/
-    offers/
-    testimonials/
-  lib/
-  test/
-  types/
-docs/
-public/
-  images/
-    brand/
-    products/
-    testimonials/
-```
+## Imágenes
 
-## Datos Comerciales
+La estructura real actual de `public/images/products` es mixta:
 
-Los datos críticos viven en archivos tipados:
+- fotos reales en carpeta plana con `.jpg` y `.heif`;
+- carpetas SKU heredadas con `1.webp` mínimos de etapa anterior.
 
-- `src/config/site.ts`: marca, descripción, frase, ubicación e Instagram.
-- `src/config/navigation.ts`: navegación principal y categorías.
-- `src/config/commerce.ts`: WhatsApp, envíos, pagos y umbral de envío gratis.
+Para evitar rutas rotas y asociaciones ambiguas, el catálogo usa un mapa tipado en `src/data/product-images.ts`.
 
-Para modificar WhatsApp, Instagram, medios de pago o envío, cambiar estas configuraciones y no los componentes.
+Para agregar una imagen a un producto existente:
 
-## Productos E Imágenes
+1. Guardar el archivo en `public/images/products`.
+2. Preferir formatos web compatibles como `.jpg`, `.png` o `.webp`.
+3. Agregar la ruta pública al SKU correspondiente en `productImagesBySku`.
+4. Usar un `alt` descriptivo.
 
-Los productos de ejemplo viven temporalmente en `src/data/products.ts`.
+## Cómo Agregar Un Producto
 
-Los componentes acceden a ellos mediante `src/features/catalog`, no importando datos directos.
-
-Convención de imágenes:
-
-```txt
-public/images/products/{SKU}/{index}.webp
-```
-
-El logo real, cuando exista, debe ubicarse en:
-
-```txt
-public/images/brand/
-```
-
-Mientras no haya logo real, `BrandLogo` muestra una marca temporal basada en texto.
+1. Crear un SKU estable con formato `SOL-{CATEGORIA}-{NUMERO}`.
+2. Crear un `slug` en minúsculas, sin tildes, con guiones.
+3. Agregar el producto en `src/data/products.ts`.
+4. Usar una categoría definida en `src/config/categories.ts`.
+5. Guardar precios como números enteros en pesos argentinos.
+6. Definir `stock`.
+7. Agregar `offerPrice` solo si es menor que `price`.
+8. Usar `visible: false` para ocultarlo.
+9. Usar `featured: true` para destacarlo en Home.
+10. Asociar imágenes en `src/data/product-images.ts`.
 
 ## Comandos
 
@@ -106,18 +82,11 @@ npm run build
 npm run dev
 ```
 
-## Roadmap
+## Datos Comerciales
 
-- Catálogo navegable por categorías.
-- Página de detalle de producto.
-- Búsqueda y filtros.
-- Carrito.
-- Checkout por WhatsApp.
-- Integración con Mercado Pago.
-- Panel administrador.
-- PostgreSQL y Prisma.
-- Importación de productos desde Excel.
+- `src/config/site.ts`: marca, descripción, ubicación e Instagram.
+- `src/config/navigation.ts`: navegación.
+- `src/config/commerce.ts`: WhatsApp, envíos, pagos y umbral de envío gratis.
+- `src/config/categories.ts`: categorías del catálogo.
 
-## Despliegue
-
-El proyecto está preparado para desplegarse como aplicación Next.js. `NEXT_PUBLIC_SITE_URL` puede configurarse para completar `metadataBase` en producción.
+`NEXT_PUBLIC_SITE_URL` puede configurarse para completar `metadataBase` en producción.

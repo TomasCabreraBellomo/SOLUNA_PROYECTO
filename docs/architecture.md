@@ -2,56 +2,56 @@
 
 ## Organización General
 
-La aplicación se organiza por responsabilidad:
-
-- `src/app`: rutas, metadata, layout raíz y estilos globales.
-- `src/components`: componentes reutilizables. `layout` contiene estructura pública y `ui` contiene primitivas visuales.
-- `src/features`: módulos de negocio. `catalog` expone funciones de acceso a productos.
-- `src/config`: configuración tipada de marca, navegación y comercio.
-- `src/data`: fuente temporal de datos.
-- `src/lib`: utilidades compartidas.
+- `src/app`: rutas, metadata y layouts de Next.js App Router.
+- `src/components`: componentes reutilizables de UI, layout y catálogo.
+- `src/features/catalog`: capa de acceso, filtros, ordenamiento, validación y utilidades de catálogo.
+- `src/config`: configuración tipada de sitio, comercio, navegación y categorías.
+- `src/data`: fuente temporal de productos e imágenes.
 - `src/types`: contratos de dominio.
 - `public/images`: assets públicos.
 
-## Layout Público
+## Separación Entre Datos Y Componentes
 
-La estructura común vive en `PublicLayout` y compone:
+Los productos viven en `src/data/products.ts`, pero los componentes visuales no importan ese archivo. El acceso pasa por `src/features/catalog`, que expone funciones síncronas preparadas para convertirse en asíncronas cuando exista base de datos.
 
-- `TopBar`
-- `SiteHeader`
-- contenido de página
-- `SiteFooter`
+Esta separación permite migrar luego a PostgreSQL/Prisma reemplazando la implementación interna del catálogo sin cambiar `ProductCard`, Home o las páginas públicas.
 
-El menú mobile es un Client Component porque necesita estado local. El resto del layout se mantiene como Server Component.
+## Filtros Por URL
 
-## Catálogo
+`/productos` lee filtros desde search params:
 
-Los productos viven temporalmente en `src/data/products.ts` porque esta etapa no incluye backend, API, Prisma ni PostgreSQL.
+- `search`
+- `category`
+- `material`
+- `color`
+- `minPrice`
+- `maxPrice`
+- `inStock`
+- `offers`
+- `sort`
 
-Usar TypeScript permite validar el contrato `Product`, tener autocompletado y mantener refactors seguros. Los componentes no importan `products.ts`; acceden mediante `src/features/catalog`.
+Los formularios usan método GET. La URL se puede compartir, recargar y navegar hacia atrás sin estado global.
 
 ## Imágenes
 
-El objeto `Product` no guarda nombres de imágenes. La ruta se infiere desde el SKU:
+La inspección real mostró una carpeta plana con fotos `.jpg` y `.heif`, más carpetas SKU heredadas con `1.webp`.
 
-```ts
-getProductImagePath("SOL-CHA-0001");
-```
+No se infieren imágenes por nombre en runtime. Se usa `src/data/product-images.ts` como mapa tipado por SKU para asociar únicamente archivos confirmados y evitar rutas rotas.
 
-Resultado:
+## Producto Individual
 
-```txt
-/images/products/SOL-CHA-0001/1.webp
-```
+`/productos/[slug]` usa:
 
-## Migración A PostgreSQL
+- `generateStaticParams()` desde productos visibles;
+- `generateMetadata()` por producto;
+- `notFound()` para slugs inexistentes;
+- galería con Client Component solo para cambiar imagen principal;
+- relacionados derivados por categoría, material y fallback visible.
 
-Cuando se incorpore persistencia:
+## Migración Futura A PostgreSQL
 
-1. Definir modelos con Prisma.
-2. Mapear entidades de base de datos al contrato usado por UI.
-3. Reemplazar la implementación interna de `catalog.service.ts`.
-4. Mantener estable la interfaz pública del catálogo.
-5. Agregar API routes o server actions solo cuando el panel o flujos dinámicos lo requieran.
-
-La intención es que `ProductCard`, Home y páginas públicas no cambien por el origen de datos.
+1. Modelar productos, categorías e imágenes en Prisma.
+2. Mantener DTOs compatibles con `Product`.
+3. Reemplazar funciones internas de `src/features/catalog`.
+4. Mantener filtros de URL como contrato público.
+5. Agregar APIs o Server Actions solo cuando existan panel/admin/persistencia.
