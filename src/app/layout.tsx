@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Nunito_Sans } from "next/font/google";
 
 import { siteConfig } from "@/config/site";
+import { CartProvider, createCartProduct } from "@/features/cart";
+import { getProductPrimaryImage, getVisibleProducts } from "@/features/catalog";
 import { cn } from "@/lib/utils";
 
 import "./globals.css";
@@ -18,10 +20,8 @@ const sansFont = Nunito_Sans({
   weight: ["400", "500", "600", "700", "800"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-
 export const metadata: Metadata = {
-  metadataBase: siteUrl ? new URL(siteUrl) : undefined,
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.shortName}`,
@@ -45,12 +45,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cartCatalog = getVisibleProducts().map((product) =>
+    createCartProduct(product, getProductPrimaryImage(product)),
+  );
+
   return (
     <html
       lang={siteConfig.locale}
       className={cn(displayFont.variable, sansFont.variable)}
     >
-      <body>{children}</body>
+      <body>
+        <CartProvider catalog={cartCatalog}>{children}</CartProvider>
+      </body>
     </html>
   );
 }

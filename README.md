@@ -2,7 +2,10 @@
 
 Storefront público para Soluna Accesorios, una tienda catálogo argentina de joyas y accesorios ubicada en San Miguel de Tucumán.
 
-La etapa actual implementa catálogo funcional con búsqueda, filtros por URL, ordenamiento, páginas individuales de producto, galería, stock, relacionados y ofertas reales cuando existan. No incluye carrito funcional, checkout, backend, base de datos, pagos, autenticación ni panel administrativo.
+La etapa actual implementa catálogo funcional con búsqueda, filtros por URL,
+ordenamiento, páginas individuales, stock, ofertas reales, carrito persistente
+y preparación manual de pedidos por WhatsApp. No incluye checkout con pagos,
+backend, base de datos, autenticación ni panel administrativo.
 
 ## Stack
 
@@ -22,6 +25,7 @@ La etapa actual implementa catálogo funcional con búsqueda, filtros por URL, o
 - `/`
 - `/productos`
 - `/productos/[slug]`
+- `/carrito`
 - `/ofertas`
 - `/cuida-tus-joyas`
 - `/testimonios`
@@ -82,6 +86,12 @@ npm run build
 npm run dev
 ```
 
+## Carrito y WhatsApp
+
+El carrito guarda únicamente SKU y cantidad en `localStorage` y reconstruye los
+datos desde el catálogo vigente. La arquitectura, configuración y flujo de
+prueba están documentados en `docs/cart.md`.
+
 ## Datos Comerciales
 
 - `src/config/site.ts`: marca, descripción, ubicación e Instagram.
@@ -89,4 +99,11 @@ npm run dev
 - `src/config/commerce.ts`: WhatsApp, envíos, pagos y umbral de envío gratis.
 - `src/config/categories.ts`: categorías del catálogo.
 
-`NEXT_PUBLIC_SITE_URL` puede configurarse para completar `metadataBase` en producción.
+Configurar en producción:
+
+```env
+NEXT_PUBLIC_SITE_URL=https://dominio-publico
+NEXT_PUBLIC_WHATSAPP_NUMBER=5493874093118
+```
+
+Consultar `.env.example` y `docs/cart.md` antes del despliegue.

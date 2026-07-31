@@ -14,7 +14,7 @@ Catálogo, filtros y páginas de producto.
 
 ## Etapa 4
 
-Carrito persistente y pedido por WhatsApp.
+Carrito persistente y pedido manual por WhatsApp implementados.
 
 ## Etapa 5
 

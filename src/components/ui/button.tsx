@@ -4,11 +4,7 @@ import type { MouseEventHandler, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export type ButtonVariant =
-  | "primary"
-  | "secondary"
-  | "outline"
-  | "ghost"
-  | "whatsapp";
+  "primary" | "secondary" | "outline" | "ghost" | "whatsapp";
 
 type ButtonBaseProps = {
   children: ReactNode;
@@ -20,7 +16,7 @@ type ButtonBaseProps = {
 
 type ButtonProps = ButtonBaseProps & {
   href?: string;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
   rel?: string;
   target?: string;
   type?: "button" | "submit" | "reset";
@@ -75,6 +71,7 @@ export function Button({
         aria-label={ariaLabel}
         className={classes}
         href={href}
+        onClick={onClick}
         rel={rel}
         target={target}
       >

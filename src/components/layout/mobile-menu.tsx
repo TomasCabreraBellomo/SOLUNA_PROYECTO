@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, Search, ShoppingBag, X } from "lucide-react";
+import { Menu, Search, X } from "lucide-react";
 import { useState } from "react";
 
 import { BrandLogo } from "@/components/brand-logo";
@@ -66,15 +66,9 @@ export function MobileMenu({ navigation }: MobileMenuProps) {
             </nav>
 
             <div className="mt-auto grid gap-3 pt-8">
-              <div className="flex gap-3">
-                <IconButton aria-label="Buscar productos">
-                  <Search aria-hidden="true" size={19} />
-                </IconButton>
-                <IconButton aria-label="Ver carrito, 0 productos">
-                  <ShoppingBag aria-hidden="true" size={19} />
-                  <span className="sr-only">0 productos</span>
-                </IconButton>
-              </div>
+              <IconButton aria-label="Buscar productos">
+                <Search aria-hidden="true" size={19} />
+              </IconButton>
               <WhatsAppButton />
             </div>
           </div>

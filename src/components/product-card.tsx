@@ -13,6 +13,7 @@ import {
   getStockStatus,
   isOfferActive,
 } from "@/features/catalog";
+import { AddToCartButton } from "@/features/cart";
 import type { Product } from "@/types/product";
 
 type ProductCardProps = {
@@ -82,13 +83,20 @@ export function ProductCard({ product }: ProductCardProps) {
           <Price product={product} />
           <ProductStockStatus stock={product.stock} />
         </div>
-        <Button
-          className="w-full px-3"
-          href={`/productos/${product.slug}`}
-          variant="secondary"
-        >
-          Ver producto
-        </Button>
+        <div className="grid gap-2">
+          <AddToCartButton
+            disabled={product.stock === 0}
+            productName={product.name}
+            sku={product.sku}
+          />
+          <Button
+            className="w-full px-3"
+            href={`/productos/${product.slug}`}
+            variant="secondary"
+          >
+            Ver producto
+          </Button>
+        </div>
       </div>
     </article>
   );

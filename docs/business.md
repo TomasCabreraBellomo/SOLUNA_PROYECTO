@@ -16,6 +16,12 @@ San Miguel de Tucumán, Argentina
 
 5493874093118
 
+Persona que recibe pedidos: Sofía.
+
+El número se configura mediante `NEXT_PUBLIC_WHATSAPP_NUMBER`, sin `+`, espacios
+ni guiones. Antes de publicar debe comprobarse manualmente que abre la
+conversación correcta.
+
 ## Instagram
 
 https://www.instagram.com/solunaccs.tuc/

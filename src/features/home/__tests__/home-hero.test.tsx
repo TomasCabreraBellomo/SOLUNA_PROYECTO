@@ -1,11 +1,12 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { HomePage } from "@/features/home/home-page";
+import { renderWithCart } from "@/test/render-with-cart";
 
 describe("premium home hero", () => {
   it("keeps a single semantic brand message and the care guide entry point", () => {
-    render(<HomePage />);
+    renderWithCart(<HomePage />);
 
     expect(
       screen.getByRole("heading", {

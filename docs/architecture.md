@@ -5,6 +5,7 @@
 - `src/app`: rutas, metadata y layouts de Next.js App Router.
 - `src/components`: componentes reutilizables de UI, layout y catálogo.
 - `src/features/catalog`: capa de acceso, filtros, ordenamiento, validación y utilidades de catálogo.
+- `src/features/cart`: modelo, utilidades, persistencia, estado y pedido por WhatsApp.
 - `src/config`: configuración tipada de sitio, comercio, navegación y categorías.
 - `src/data`: fuente temporal de productos e imágenes.
 - `src/types`: contratos de dominio.
@@ -47,6 +48,17 @@ No se infieren imágenes por nombre en runtime. Se usa `src/data/product-images.
 - `notFound()` para slugs inexistentes;
 - galería con Client Component solo para cambiar imagen principal;
 - relacionados derivados por categoría, material y fallback visible.
+
+## Carrito
+
+El layout raíz proyecta el catálogo visible a un modelo serializable y lo
+entrega a `CartProvider`. La persistencia guarda solo SKU y cantidad; durante la
+hidratación se reconcilia cada entrada contra el catálogo vigente para impedir
+precios, stock o nombres obsoletos.
+
+La interfaz vive en `/carrito`, con Client Components acotados. La elección de
+una página dedicada conserva comportamiento nativo de foco, teclado y scroll y
+evita sumar un diálogo modal a la navegación mobile.
 
 ## Migración Futura A PostgreSQL
 

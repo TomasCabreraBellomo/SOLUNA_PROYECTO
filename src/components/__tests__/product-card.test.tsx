@@ -1,15 +1,23 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { ProductCard } from "@/components/product-card";
+import { createCartProduct } from "@/features/cart";
 import { getVisibleProducts } from "@/features/catalog";
+import { renderWithCart } from "@/test/render-with-cart";
 import type { Product } from "@/types/product";
 
 describe("ProductCard", () => {
+  function renderProductCard(product: Product) {
+    return renderWithCart(<ProductCard product={product} />, [
+      createCartProduct(product),
+    ]);
+  }
+
   it("renders product information and visual actions", () => {
     const product = getVisibleProducts()[0];
 
-    render(<ProductCard product={product} />);
+    renderProductCard(product);
 
     expect(
       screen.getByRole("heading", { name: product.name }),
@@ -32,7 +40,7 @@ describe("ProductCard", () => {
       offerPrice: 8000,
     };
 
-    render(<ProductCard product={product} />);
+    renderProductCard(product);
 
     expect(screen.queryByText(/oferta|off/i)).not.toBeInTheDocument();
     expect(screen.getByText(/10.000/)).not.toHaveClass("line-through");
@@ -47,7 +55,7 @@ describe("ProductCard", () => {
       offerPrice: 8000,
     };
 
-    render(<ProductCard product={product} />);
+    renderProductCard(product);
 
     expect(screen.getByText(/20% off/i)).toBeInTheDocument();
     expect(screen.getByText(/8.000/)).toBeInTheDocument();

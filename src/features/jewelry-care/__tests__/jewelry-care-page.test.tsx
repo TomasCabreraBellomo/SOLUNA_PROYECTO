@@ -1,11 +1,12 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { JewelryCarePage } from "@/features/jewelry-care";
+import { renderWithCart } from "@/test/render-with-cart";
 
 describe("JewelryCarePage", () => {
   it("renders the guide hierarchy, internal navigation and supplied content", () => {
-    render(<JewelryCarePage />);
+    renderWithCart(<JewelryCarePage />);
 
     expect(
       screen.getByRole("heading", {
@@ -18,9 +19,10 @@ describe("JewelryCarePage", () => {
         name: "Índice de la guía de cuidados",
       }),
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", { name: "Plata 925" }),
-    ).toHaveAttribute("href", "#plata-925");
+    expect(screen.getByRole("link", { name: "Plata 925" })).toHaveAttribute(
+      "href",
+      "#plata-925",
+    );
 
     for (const material of [
       "Plata 925",
@@ -38,11 +40,13 @@ describe("JewelryCarePage", () => {
   });
 
   it("uses the configured secure WhatsApp CTA", () => {
-    render(<JewelryCarePage />);
+    renderWithCart(<JewelryCarePage />);
 
-    const cta = screen.getAllByRole("link", {
-      name: "Consultar por WhatsApp",
-    }).at(-1);
+    const cta = screen
+      .getAllByRole("link", {
+        name: "Consultar por WhatsApp",
+      })
+      .at(-1);
     expect(cta).toHaveAttribute("target", "_blank");
     expect(cta).toHaveAttribute("rel", "noopener noreferrer");
     expect(cta?.getAttribute("href")).toMatch(/^https:\/\/wa\.me\//);

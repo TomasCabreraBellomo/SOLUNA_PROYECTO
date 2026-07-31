@@ -7,6 +7,9 @@ describe("commerce links", () => {
   it("builds the WhatsApp link from central configuration", () => {
     const url = getWhatsAppUrl("Hola Soluna");
 
+    expect(commerceConfig.orderRecipientName).toBe("Sofía");
+    expect(commerceConfig.whatsapp.phone).toBe("5493874093118");
+    expect(commerceConfig.whatsapp.phone).toMatch(/^\d+$/);
     expect(url).toContain(commerceConfig.whatsapp.phone);
     expect(url).toContain("Hola%20Soluna");
   });

@@ -13,6 +13,7 @@ type Product = {
   measurements?: string;
   description: string;
   price: number;
+  offer?: boolean;
   offerPrice?: number;
   stock: number;
   featured?: boolean;
@@ -117,7 +118,10 @@ Archivos pendientes de alta como producto:
 
 ## Ofertas
 
-`offerPrice` debe ser menor que `price`. Si no cumple esa regla, el producto no se considera oferta.
+`Oferta` es la única activación comercial. Con `offer: false`, `offerPrice` se
+ignora. Con `offer: true`, `offerPrice` debe ser numérico, mayor que cero y menor
+que `price`. La aplicación usa las utilidades de `src/features/catalog/offer.ts`
+para precio efectivo, precio anterior y estado de oferta.
 
 ## Visibilidad Y Destacados
 

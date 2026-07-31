@@ -1,10 +1,11 @@
-import { Search, ShoppingBag } from "lucide-react";
+import { Search } from "lucide-react";
 
 import { BrandLogo } from "@/components/brand-logo";
 import { Container } from "@/components/ui/container";
 import { IconButton } from "@/components/ui/icon-button";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { mainNavigation } from "@/config/navigation";
+import { CartButton } from "@/features/cart";
 
 import { MobileMenu } from "./mobile-menu";
 import { NavigationLink } from "./navigation-link";
@@ -19,10 +20,7 @@ export function SiteHeader() {
           <ul className="flex items-center gap-1">
             {mainNavigation.map((item) => (
               <li key={item.href}>
-                <NavigationLink
-                  href={item.href}
-                  label={item.label}
-                />
+                <NavigationLink href={item.href} label={item.label} />
               </li>
             ))}
           </ul>
@@ -32,19 +30,14 @@ export function SiteHeader() {
           <IconButton aria-label="Buscar productos">
             <Search aria-hidden="true" size={19} />
           </IconButton>
-          <IconButton
-            aria-label="Ver carrito, 0 productos"
-            className="relative"
-          >
-            <ShoppingBag aria-hidden="true" size={19} />
-            <span className="absolute -right-1 -top-1 grid size-5 place-items-center rounded-full bg-primary text-[0.68rem] font-bold text-primary-foreground">
-              0
-            </span>
-          </IconButton>
+          <CartButton />
           <WhatsAppButton />
         </div>
 
-        <MobileMenu navigation={mainNavigation} />
+        <div className="flex items-center gap-2 lg:hidden">
+          <CartButton />
+          <MobileMenu navigation={mainNavigation} />
+        </div>
       </Container>
     </header>
   );

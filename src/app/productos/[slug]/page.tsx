@@ -14,6 +14,7 @@ import { Section } from "@/components/ui/section";
 import { commerceConfig, getWhatsAppUrl } from "@/config/commerce";
 import { getCategoryByValue } from "@/config/categories";
 import { siteConfig } from "@/config/site";
+import { AddToCartButton } from "@/features/cart";
 import {
   getProductBySlug,
   getEffectivePrice,
@@ -151,9 +152,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </div>
 
               <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                <Button disabled variant="ghost">
-                  Carrito próximamente
-                </Button>
+                <AddToCartButton
+                  disabled={product.stock === 0}
+                  productName={product.name}
+                  sku={product.sku}
+                />
                 <Button
                   disabled={product.stock === 0}
                   href={getWhatsAppUrl(whatsappMessage)}
