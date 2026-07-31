@@ -19,13 +19,19 @@ export {
   normalizeCatalogFilters,
 } from "./catalog.service";
 export {
-  calculateDiscountPercentage,
   createProductSlug,
   filterProducts,
   getStockStatus,
-  isValidOffer,
   normalizeSearchText,
   sortProducts,
 } from "./catalog.utils";
+export {
+  calculateDiscountPercentage,
+  getEffectivePrice,
+  getOfferValidationError,
+  getPreviousPrice,
+  isOfferActive,
+} from "./offer";
+export type { OfferProduct } from "./offer";
 export { validateCatalogProducts } from "./catalog.validation";
 export type { CatalogFilters, CatalogSort, StockStatus } from "./catalog.utils";

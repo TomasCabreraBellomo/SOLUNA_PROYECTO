@@ -18,7 +18,7 @@ export default function OfertasPage() {
 
   return (
     <PublicLayout>
-      <Section>
+      <Section className="pt-10 sm:pt-14 lg:pt-16">
         <Container>
           <SectionHeading
             description="Productos con precio especial cargado en el catálogo. Si no hay ofertas visibles, no mostramos descuentos inventados."

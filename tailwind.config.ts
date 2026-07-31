@@ -36,11 +36,22 @@ const config: Config = {
         eyebrow: ["0.75rem", { lineHeight: "1.2", letterSpacing: "0.08em" }],
       },
       boxShadow: {
-        soft: "0 18px 50px hsl(var(--foreground) / 0.08)",
-        lift: "0 10px 28px hsl(var(--foreground) / 0.07)",
+        soft: "var(--shadow-soft)",
+        lift: "var(--shadow-lift)",
+        card: "var(--shadow-card)",
       },
       borderRadius: {
-        soluna: "0.5rem",
+        "soluna-sm": "var(--radius-sm)",
+        soluna: "var(--radius-md)",
+        "soluna-lg": "var(--radius-lg)",
+      },
+      transitionDuration: {
+        fast: "var(--duration-fast)",
+        standard: "var(--duration-standard)",
+        slow: "var(--duration-slow)",
+      },
+      transitionTimingFunction: {
+        soluna: "var(--ease-soluna)",
       },
     },
   },

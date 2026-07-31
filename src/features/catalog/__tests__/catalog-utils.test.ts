@@ -4,8 +4,11 @@ import { products } from "@/data/products";
 import {
   calculateDiscountPercentage,
   filterProducts,
+  getEffectivePrice,
+  getPreviousPrice,
   getProductBySlug,
   getRelatedProducts,
+  isOfferActive,
   normalizeSearchText,
   sortProducts,
   validateCatalogProducts,
@@ -32,10 +35,8 @@ describe("catalog utilities", () => {
       ),
     ).toBe(true);
     expect(
-      filterProducts(products, { offers: true }).every(
-        (product) =>
-          typeof product.offerPrice === "number" &&
-          product.offerPrice < product.price,
+      filterProducts(products, { offers: true }).every((product) =>
+        isOfferActive(product),
       ),
     ).toBe(true);
     expect(
@@ -47,10 +48,8 @@ describe("catalog utilities", () => {
 
   it("sorts products by effective price", () => {
     const sortedProducts = sortProducts(products, "price-asc");
-    expect(sortedProducts[0].offerPrice ?? sortedProducts[0].price).toBe(
-      Math.min(
-        ...products.map((product) => product.offerPrice ?? product.price),
-      ),
+    expect(getEffectivePrice(sortedProducts[0])).toBe(
+      Math.min(...products.map(getEffectivePrice)),
     );
   });
 
@@ -61,19 +60,40 @@ describe("catalog utilities", () => {
   it("returns related products without the current product", () => {
     const product = products[0];
     const relatedProducts = getRelatedProducts(product, 4);
-    expect(relatedProducts.some((item) => item.sku === product.sku)).toBe(false);
+    expect(relatedProducts.some((item) => item.sku === product.sku)).toBe(
+      false,
+    );
   });
 
   it("calculates discount percentage only for valid offers", () => {
     const offerProduct: Product = {
       ...products[0],
       price: 12000,
+      offer: true,
       offerPrice: 8000,
     };
-    const regularProduct: Product = { ...offerProduct, offerPrice: undefined };
+    const regularProduct: Product = {
+      ...offerProduct,
+      offer: false,
+      offerPrice: 8000,
+    };
 
     expect(calculateDiscountPercentage(offerProduct)).toBe(33);
     expect(calculateDiscountPercentage(regularProduct)).toBeNull();
+    expect(getEffectivePrice(regularProduct)).toBe(12000);
+    expect(getPreviousPrice(regularProduct)).toBeNull();
+  });
+
+  it("does not include a product in offers based only on Precio Oferta", () => {
+    const regularProduct: Product = {
+      ...products[0],
+      price: 12000,
+      offer: false,
+      offerPrice: 8000,
+    };
+
+    expect(isOfferActive(regularProduct)).toBe(false);
+    expect(filterProducts([regularProduct], { offers: true })).toEqual([]);
   });
 
   it("validates duplicate SKUs and slugs", () => {

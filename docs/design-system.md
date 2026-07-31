@@ -70,6 +70,13 @@ El diseño se valida desde mobile angosto hasta desktop amplio. La navegación d
 - Contraste moderado y legible.
 - Respeto por `prefers-reduced-motion`.
 
+## Evolución visual
+
+La escala vigente de radios, sombras, transiciones, variantes de botones y las
+reglas de movimiento se documentan en `docs/visual-experience.md`. Los valores
+se centralizan en variables CSS y configuración de Tailwind. `Reveal` permite
+entradas progresivas y respeta `prefers-reduced-motion`.
+
 ## Logo
 
 Si existe un archivo real en `public/images/brand`, debe usarse con `next/image`, sin deformar, recortar ni modificar el original. Mientras no exista, `BrandLogo` muestra “SOLUNA” y “Accesorios” como marca temporal de texto.

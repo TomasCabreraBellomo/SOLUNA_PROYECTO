@@ -18,6 +18,17 @@
   --border: 24 16% 86%;
   --ring: 42 46% 45%;
   --destructive: 0 65% 42%;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.5rem;
+  --shadow-card: 0 1px 2px hsl(var(--foreground) / 0.04),
+    0 8px 28px hsl(var(--foreground) / 0.055);
+  --shadow-soft: 0 18px 50px hsl(var(--foreground) / 0.08);
+  --shadow-lift: 0 18px 38px hsl(var(--foreground) / 0.11);
+  --duration-fast: 180ms;
+  --duration-standard: 300ms;
+  --duration-slow: 520ms;
+  --ease-soluna: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: light;
   background: hsl(var(--background));
 }
@@ -28,6 +39,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
 }
 
 body {
@@ -42,6 +54,7 @@ body {
   color: hsl(var(--foreground));
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -58,6 +71,81 @@ a {
   outline-color: hsl(var(--ring));
 }
 
+button,
+a,
+input,
+select,
+summary {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.reveal-pending {
+  opacity: 0;
+  transform: translateY(1rem);
+}
+
+.reveal-visible {
+  animation: soluna-reveal var(--duration-slow) var(--ease-soluna) both;
+}
+
+.gold-signature {
+  color: hsl(39 48% 34%);
+  background-image: linear-gradient(
+    110deg,
+    hsl(39 52% 31%),
+    hsl(42 48% 52%),
+    hsl(44 62% 72%),
+    hsl(38 50% 38%)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 0 hsl(42 55% 75% / 0.24));
+  animation: soluna-signature 700ms var(--ease-soluna) both;
+}
+
+.brand-phrase-accent {
+  color: hsl(39 48% 34%);
+}
+
+.hero-gold-line {
+  transform-origin: left center;
+  animation: soluna-line 650ms 180ms var(--ease-soluna) both;
+}
+
+@keyframes soluna-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes soluna-signature {
+  from {
+    opacity: 0;
+    transform: translateY(0.35rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes soluna-line {
+  from {
+    opacity: 0;
+    transform: scaleX(0.35);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -66,5 +154,13 @@ a {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .reveal-pending,
+  .reveal-visible,
+  .gold-signature,
+  .hero-gold-line {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

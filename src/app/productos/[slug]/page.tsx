@@ -16,11 +16,12 @@ import { getCategoryByValue } from "@/config/categories";
 import { siteConfig } from "@/config/site";
 import {
   getProductBySlug,
+  getEffectivePrice,
   getProductImagePaths,
   getProductPrimaryImage,
   getRelatedProducts,
   getVisibleProducts,
-  isValidOffer,
+  isOfferActive,
 } from "@/features/catalog";
 import { formatCurrency } from "@/lib/formatters";
 
@@ -88,7 +89,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <Container>
           <ProductBreadcrumbs product={product} />
 
-          <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-start">
+          <div className="mt-8 grid gap-10 lg:grid-cols-[1.05fr_0.85fr] lg:items-start lg:gap-14">
             <ProductGallery images={images} productName={product.name} />
 
             <div className="lg:sticky lg:top-28">
@@ -99,9 +100,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 {product.name}
               </Heading>
 
-              <div className="mt-5 flex flex-wrap items-center gap-3">
-                <Price price={product.price} offerPrice={product.offerPrice} />
-                {isValidOffer(product) ? (
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <Price className="text-xl" product={product} />
+                {isOfferActive(product) ? (
                   <span className="rounded-full bg-secondary px-3 py-1 text-label font-bold text-foreground">
                     Precio especial
                   </span>
@@ -112,7 +113,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 <ProductStockStatus stock={product.stock} />
               </div>
 
-              <dl className="mt-8 grid gap-4 rounded-soluna border border-border bg-surface p-5 text-small">
+              <dl className="mt-8 grid gap-4 rounded-soluna-lg border border-border/85 bg-surface p-5 text-small shadow-card">
                 <div className="flex justify-between gap-4">
                   <dt className="font-semibold text-foreground">SKU</dt>
                   <dd className="text-muted-foreground">{product.sku}</dd>
@@ -154,18 +155,21 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   Carrito próximamente
                 </Button>
                 <Button
+                  disabled={product.stock === 0}
                   href={getWhatsAppUrl(whatsappMessage)}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Consultar por WhatsApp
+                  {product.stock === 0
+                    ? "Producto sin stock"
+                    : "Consultar por WhatsApp"}
                 </Button>
               </div>
 
               <p className="mt-4 text-small text-muted-foreground">
-                Precio actual:{" "}
-                {formatCurrency(product.offerPrice ?? product.price)}. Consultas
-                y compras se coordinan por {commerceConfig.whatsapp.label}.
+                Precio actual: {formatCurrency(getEffectivePrice(product))}.
+                Consultas y compras se coordinan por{" "}
+                {commerceConfig.whatsapp.label}.
               </p>
             </div>
           </div>

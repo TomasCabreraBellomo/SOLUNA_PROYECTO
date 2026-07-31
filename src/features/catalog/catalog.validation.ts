@@ -1,6 +1,7 @@
 import type { Product } from "@/types/product";
 
-import { isProductCategory, isValidOffer } from "./catalog.utils";
+import { isProductCategory } from "./catalog.utils";
+import { getOfferValidationError } from "./offer";
 
 export function validateCatalogProducts(products: Product[]): string[] {
   const errors: string[] = [];
@@ -29,21 +30,9 @@ export function validateCatalogProducts(products: Product[]): string[] {
       errors.push(`Product ${product.sku} has negative stock.`);
     }
 
-    if (
-      typeof product.offerPrice === "number" &&
-      product.offerPrice >= product.price
-    ) {
-      errors.push(`Product ${product.sku} has an invalid offerPrice.`);
-    }
-
-    if (
-      typeof product.offerPrice === "number" &&
-      product.offerPrice > 0 &&
-      !isValidOffer(product)
-    ) {
-      errors.push(
-        `Product ${product.sku} offerPrice must be lower than price.`,
-      );
+    const offerError = getOfferValidationError(product);
+    if (offerError) {
+      errors.push(`Product ${product.sku}: ${offerError}`);
     }
   }
 

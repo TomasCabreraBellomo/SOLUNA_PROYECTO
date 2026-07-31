@@ -1,1 +1,1 @@
-export type JewelryCareStatus = "draft";
+export { JewelryCarePage } from "./jewelry-care-page";

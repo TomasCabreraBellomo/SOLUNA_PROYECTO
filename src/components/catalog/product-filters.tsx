@@ -23,6 +23,9 @@ const sortOptions: { value: CatalogSort; label: string }[] = [
   { value: "newest", label: "Más recientes" },
 ];
 
+const fieldStyles =
+  "mt-2 min-h-12 w-full rounded-soluna border border-border bg-surface px-4 text-small text-foreground outline-none transition-all duration-fast placeholder:text-muted-foreground/75 hover:border-foreground/25 focus:border-ring focus:ring-4 focus:ring-ring/10";
+
 export function ProductFilters({
   categories,
   colors,
@@ -40,14 +43,21 @@ export function ProductFilters({
         >
           Buscar
         </label>
-        <input
-          className="mt-2 h-11 w-full rounded-soluna border border-border bg-surface px-3 text-small outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/20"
-          defaultValue={filters.search}
-          id="search"
-          name="search"
-          placeholder="Nombre, SKU o material"
-          type="search"
-        />
+        <div className="relative">
+          <Search
+            aria-hidden="true"
+            className="pointer-events-none absolute left-4 top-1/2 mt-1 text-muted-foreground"
+            size={17}
+          />
+          <input
+            className={`${fieldStyles} pl-11`}
+            defaultValue={filters.search}
+            id="search"
+            name="search"
+            placeholder="Nombre, SKU o material"
+            type="search"
+          />
+        </div>
       </div>
 
       <div>
@@ -58,7 +68,7 @@ export function ProductFilters({
           Categoría
         </label>
         <select
-          className="mt-2 h-11 w-full rounded-soluna border border-border bg-surface px-3 text-small outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/20"
+          className={fieldStyles}
           defaultValue={filters.category ?? ""}
           id="category"
           name="category"
@@ -81,7 +91,7 @@ export function ProductFilters({
             Material
           </label>
           <select
-            className="mt-2 h-11 w-full rounded-soluna border border-border bg-surface px-3 text-small outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/20"
+            className={fieldStyles}
             defaultValue={filters.material ?? ""}
             id="material"
             name="material"
@@ -105,7 +115,7 @@ export function ProductFilters({
             Color
           </label>
           <select
-            className="mt-2 h-11 w-full rounded-soluna border border-border bg-surface px-3 text-small outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/20"
+            className={fieldStyles}
             defaultValue={filters.color ?? ""}
             id="color"
             name="color"
@@ -129,7 +139,7 @@ export function ProductFilters({
             Desde
           </label>
           <input
-            className="mt-2 h-11 w-full rounded-soluna border border-border bg-surface px-3 text-small outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/20"
+            className={fieldStyles}
             defaultValue={filters.minPrice}
             id="minPrice"
             min={0}
@@ -146,7 +156,7 @@ export function ProductFilters({
             Hasta
           </label>
           <input
-            className="mt-2 h-11 w-full rounded-soluna border border-border bg-surface px-3 text-small outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/20"
+            className={fieldStyles}
             defaultValue={filters.maxPrice}
             id="maxPrice"
             min={0}
@@ -158,9 +168,9 @@ export function ProductFilters({
       </div>
 
       <div className="grid gap-3">
-        <label className="flex items-center gap-3 text-small text-foreground">
+        <label className="flex min-h-11 cursor-pointer items-center gap-3 rounded-soluna-sm px-1 text-small text-foreground transition-colors hover:bg-surface-muted">
           <input
-            className="size-4 accent-current"
+            className="size-5 accent-current"
             defaultChecked={filters.inStock}
             name="inStock"
             type="checkbox"
@@ -168,9 +178,9 @@ export function ProductFilters({
           />
           Solo disponibles
         </label>
-        <label className="flex items-center gap-3 text-small text-foreground">
+        <label className="flex min-h-11 cursor-pointer items-center gap-3 rounded-soluna-sm px-1 text-small text-foreground transition-colors hover:bg-surface-muted">
           <input
-            className="size-4 accent-current"
+            className="size-5 accent-current"
             defaultChecked={filters.offers}
             name="offers"
             type="checkbox"
@@ -188,7 +198,7 @@ export function ProductFilters({
           Orden
         </label>
         <select
-          className="mt-2 h-11 w-full rounded-soluna border border-border bg-surface px-3 text-small outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/20"
+          className={fieldStyles}
           defaultValue={filters.sort ?? "featured"}
           id="sort"
           name="sort"
@@ -203,12 +213,12 @@ export function ProductFilters({
         </select>
       </div>
 
-      <button
-        className="inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground transition hover:bg-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-        type="submit"
-      >
+      <Button className="w-full" type="submit">
         Aplicar filtros
-      </button>
+      </Button>
     </form>
   );
 }
+import { Search } from "lucide-react";
+
+import { Button } from "@/components/ui/button";

@@ -19,7 +19,7 @@ export function EmptyState({
   return (
     <div
       className={cn(
-        "rounded-soluna border border-dashed border-border bg-surface-muted p-8 text-center",
+        "rounded-soluna-lg border border-dashed border-accent-gold/35 bg-gradient-to-b from-surface-muted to-surface p-8 text-center shadow-card sm:p-12",
         className,
       )}
     >

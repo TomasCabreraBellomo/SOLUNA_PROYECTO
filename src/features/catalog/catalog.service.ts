@@ -9,9 +9,9 @@ import {
   type CatalogSort,
   filterProducts,
   isProductCategory,
-  isValidOffer,
   sortProducts,
 } from "./catalog.utils";
+import { getEffectivePrice, isOfferActive } from "./offer";
 
 export type CategoryWithProductCount = {
   value: ProductCategory;
@@ -50,7 +50,7 @@ export function getFeaturedProducts(limit?: number): Product[] {
 }
 
 export function getOfferProducts(limit?: number): Product[] {
-  const offerProducts = getVisibleProducts().filter(isValidOffer);
+  const offerProducts = getVisibleProducts().filter(isOfferActive);
 
   return typeof limit === "number"
     ? offerProducts.slice(0, limit)
@@ -103,9 +103,7 @@ export function getProductColors(): string[] {
 }
 
 export function getProductPriceRange(): { min: number; max: number } {
-  const prices = getVisibleProducts().map(
-    (product) => product.offerPrice ?? product.price,
-  );
+  const prices = getVisibleProducts().map(getEffectivePrice);
 
   return {
     min: Math.min(...prices),

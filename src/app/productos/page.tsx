@@ -44,7 +44,7 @@ export default async function ProductosPage({
 
   return (
     <PublicLayout>
-      <Section>
+      <Section className="pt-10 sm:pt-14 lg:pt-16">
         <Container>
           <SectionHeading
             description="Explorá la selección inicial de joyas y accesorios Soluna. Podés buscar, filtrar y compartir la URL con tus preferencias."
@@ -53,7 +53,7 @@ export default async function ProductosPage({
           />
 
           <div className="mt-10 grid gap-8 lg:grid-cols-[18rem_1fr] lg:items-start">
-            <aside className="hidden rounded-soluna border border-border bg-surface p-5 lg:block">
+            <aside className="hidden rounded-soluna-lg border border-border/85 bg-surface p-6 shadow-card lg:sticky lg:top-28 lg:block">
               <ProductFilters
                 categories={getCategoriesWithProductCount()}
                 colors={getProductColors()}
@@ -65,8 +65,8 @@ export default async function ProductosPage({
             </aside>
 
             <div className="grid gap-6">
-              <details className="rounded-soluna border border-border bg-surface p-4 lg:hidden">
-                <summary className="cursor-pointer text-sm font-semibold text-foreground">
+              <details className="rounded-soluna border border-border bg-surface p-4 shadow-card lg:hidden">
+                <summary className="min-h-11 cursor-pointer content-center rounded-sm text-sm font-bold text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring">
                   Filtros y ordenamiento
                 </summary>
                 <div className="mt-5">

@@ -1,6 +1,8 @@
 import { productCategories, type ProductCategory } from "@/config/categories";
 import type { Product } from "@/types/product";
 
+import { getEffectivePrice, isOfferActive } from "./offer";
+
 export type CatalogSort =
   "featured" | "price-asc" | "price-desc" | "name-asc" | "name-desc" | "newest";
 
@@ -36,24 +38,6 @@ export function createProductSlug(value: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-export function isValidOffer(product: Product): boolean {
-  return (
-    typeof product.offerPrice === "number" &&
-    product.offerPrice > 0 &&
-    product.offerPrice < product.price
-  );
-}
-
-export function calculateDiscountPercentage(product: Product): number | null {
-  if (!isValidOffer(product)) {
-    return null;
-  }
-
-  return Math.round(
-    ((product.price - product.offerPrice!) / product.price) * 100,
-  );
-}
-
 export function getStockStatus(stock: number): StockStatus {
   if (stock <= 0) {
     return { value: "out-of-stock", label: "Sin stock" };
@@ -64,10 +48,6 @@ export function getStockStatus(stock: number): StockStatus {
   }
 
   return { value: "available", label: "Disponible" };
-}
-
-export function getEffectivePrice(product: Product): number {
-  return isValidOffer(product) ? product.offerPrice! : product.price;
 }
 
 export function isProductCategory(value: string): value is ProductCategory {
@@ -99,7 +79,7 @@ export function filterProducts(
       return false;
     }
 
-    if (filters.offers && !isValidOffer(product)) {
+    if (filters.offers && !isOfferActive(product)) {
       return false;
     }
 

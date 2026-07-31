@@ -10,6 +10,7 @@ export type Product = {
   measurements?: string;
   description: string;
   price: number;
+  offer?: boolean;
   offerPrice?: number;
   stock: number;
   featured?: boolean;

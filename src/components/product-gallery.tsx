@@ -18,7 +18,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
 
   return (
     <div className="grid gap-4">
-      <div className="relative aspect-square overflow-hidden rounded-soluna border border-border bg-surface-muted">
+      <div className="relative aspect-square overflow-hidden rounded-soluna-lg border border-border bg-surface-muted shadow-card">
         {activeImage ? (
           <Image
             src={activeImage.src}
@@ -39,8 +39,10 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
             <button
               aria-label={`Ver imagen ${index + 1} de ${productName}`}
               className={cn(
-                "relative size-20 shrink-0 overflow-hidden rounded-soluna border bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring",
-                activeIndex === index ? "border-accent-gold" : "border-border",
+                "relative size-20 shrink-0 overflow-hidden rounded-soluna border bg-surface-muted transition-all duration-fast hover:border-accent-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+                activeIndex === index
+                  ? "border-accent-gold ring-2 ring-accent-gold/15"
+                  : "border-border",
               )}
               key={image.src}
               onClick={() => setActiveIndex(index)}

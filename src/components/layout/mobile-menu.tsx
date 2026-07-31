@@ -1,7 +1,6 @@
 "use client";
 
 import { Menu, Search, ShoppingBag, X } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 
 import { BrandLogo } from "@/components/brand-logo";
@@ -9,6 +8,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import type { NavigationItem } from "@/config/navigation";
 
+import { NavigationLink } from "./navigation-link";
 type MobileMenuProps = {
   navigation: NavigationItem[];
 };
@@ -38,8 +38,10 @@ export function MobileMenu({ navigation }: MobileMenuProps) {
       {isOpen ? (
         <div className="fixed inset-0 z-50 bg-foreground/20 backdrop-blur-sm">
           <div
+            aria-modal="true"
             className="ml-auto flex h-full w-full max-w-sm flex-col border-l border-border bg-background p-5 shadow-soft"
             id="mobile-navigation"
+            role="dialog"
           >
             <div className="flex items-center justify-between gap-4">
               <BrandLogo />
@@ -52,13 +54,12 @@ export function MobileMenu({ navigation }: MobileMenuProps) {
               <ul className="space-y-2">
                 {navigation.map((item) => (
                   <li key={item.href}>
-                    <Link
-                      className="block rounded-soluna px-3 py-3 text-base font-semibold text-foreground transition hover:bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
+                    <NavigationLink
                       href={item.href}
+                      label={item.label}
+                      mobile
                       onClick={closeMenu}
-                    >
-                      {item.label}
-                    </Link>
+                    />
                   </li>
                 ))}
               </ul>

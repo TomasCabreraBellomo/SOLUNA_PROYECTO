@@ -1,5 +1,4 @@
 import { Search, ShoppingBag } from "lucide-react";
-import Link from "next/link";
 
 import { BrandLogo } from "@/components/brand-logo";
 import { Container } from "@/components/ui/container";
@@ -8,23 +7,22 @@ import { WhatsAppButton } from "@/components/whatsapp-button";
 import { mainNavigation } from "@/config/navigation";
 
 import { MobileMenu } from "./mobile-menu";
+import { NavigationLink } from "./navigation-link";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-xl">
-      <Container className="flex min-h-20 items-center justify-between gap-4">
+    <header className="sticky top-0 z-40 border-b border-border/80 bg-background/85 shadow-[0_1px_18px_hsl(var(--foreground)/0.035)] backdrop-blur-xl">
+      <Container className="flex min-h-[4.75rem] items-center justify-between gap-4 lg:min-h-20">
         <BrandLogo />
 
         <nav aria-label="Navegación principal" className="hidden lg:block">
           <ul className="flex items-center gap-1">
             {mainNavigation.map((item) => (
               <li key={item.href}>
-                <Link
-                  className="rounded-full px-4 py-2 text-sm font-semibold text-muted-foreground transition hover:bg-surface-muted hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                <NavigationLink
                   href={item.href}
-                >
-                  {item.label}
-                </Link>
+                  label={item.label}
+                />
               </li>
             ))}
           </ul>

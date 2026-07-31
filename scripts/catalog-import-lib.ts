@@ -5,6 +5,7 @@ import {
   productCategories,
   type ProductCategory,
 } from "../src/config/categories.ts";
+import { getOfferValidationError } from "../src/features/catalog/offer.ts";
 import type { Product, ProductImage } from "../src/types/product.ts";
 
 export const REQUIRED_HEADERS = [
@@ -19,6 +20,7 @@ export const REQUIRED_HEADERS = [
   "Imagen 2",
   "Visible",
   "Destacado",
+  "Oferta",
   "Precio Oferta",
 ] as const;
 
@@ -32,11 +34,15 @@ export type CatalogImportResult = {
   warnings: string[];
   errors: string[];
   discardedRows: { row: number; reason: string }[];
+  ignoredOfferPriceRows: number[];
+  foundImages: number;
+  missingImages: number;
 };
 
 export type CatalogImportOptions = {
   imagesDirectory: string;
   imageExists?: (absolutePath: string) => boolean;
+  imageNames?: readonly string[];
 };
 
 export function parseCsv(input: string): string[][] {
@@ -86,7 +92,10 @@ export function parseCsv(input: string): string[][] {
 }
 
 function normalizeHeader(value: string): string {
-  return value.replace(/^\uFEFF/, "").trim().toLocaleLowerCase("es-AR");
+  return value
+    .replace(/^\uFEFF/, "")
+    .trim()
+    .toLocaleLowerCase("es-AR");
 }
 
 function createSlug(value: string): string {
@@ -143,12 +152,16 @@ export function importCatalogCsv(
   if (!nonEmptyRows.length) throw new Error("El CSV está vacío.");
 
   const headers = nonEmptyRows[0].map(normalizeHeader);
-  const headerIndexes = new Map(headers.map((header, index) => [header, index]));
+  const headerIndexes = new Map(
+    headers.map((header, index) => [header, index]),
+  );
   const missingHeaders = REQUIRED_HEADERS.filter(
     (header) => !headerIndexes.has(normalizeHeader(header)),
   );
   if (missingHeaders.length) {
-    throw new Error(`Faltan columnas requeridas: ${missingHeaders.join(", ")}.`);
+    throw new Error(
+      `Faltan columnas requeridas: ${missingHeaders.join(", ")}.`,
+    );
   }
 
   const result: CatalogImportResult = {
@@ -158,6 +171,9 @@ export function importCatalogCsv(
     warnings: [],
     errors: [],
     discardedRows: [],
+    ignoredOfferPriceRows: [],
+    foundImages: 0,
+    missingImages: 0,
   };
   const seenSkus = new Set<string>();
   const usedSlugs = new Set<string>();
@@ -165,6 +181,14 @@ export function importCatalogCsv(
     productCategories.map((category) => category.value),
   );
   const imageExists = options.imageExists ?? fs.existsSync;
+  const availableImageNames =
+    options.imageNames ??
+    (fs.existsSync(options.imagesDirectory)
+      ? fs
+          .readdirSync(options.imagesDirectory, { withFileTypes: true })
+          .filter((entry) => entry.isFile())
+          .map((entry) => entry.name)
+      : []);
 
   nonEmptyRows.slice(1).forEach((cells, rowIndex) => {
     const csvRowNumber = rowIndex + 2;
@@ -174,10 +198,50 @@ export function importCatalogCsv(
         (cells[headerIndexes.get(normalizeHeader(header))!] ?? "").trim(),
       ]),
     ) as CsvRecord;
+    const imageNames = [record["Imagen 1"], record["Imagen 2"]].filter(Boolean);
+    const existingImageNames = new Set<string>();
+
+    for (const imageName of imageNames) {
+      try {
+        validateImageName(imageName);
+      } catch {
+        continue;
+      }
+
+      const absolutePath = path.resolve(options.imagesDirectory, imageName);
+      if (imageExists(absolutePath)) {
+        result.foundImages += 1;
+        existingImageNames.add(imageName);
+        continue;
+      }
+
+      result.missingImages += 1;
+      const expectedStem = path.parse(imageName).name;
+      const closeMatches = availableImageNames.filter((candidate) => {
+        const candidateStem = path
+          .parse(candidate)
+          .name.toLocaleLowerCase("es-AR");
+        const normalizedExpectedStem = expectedStem
+          .toLocaleLowerCase("es-AR")
+          .replace(/-0?1$/, "");
+        const normalizedCandidateStem = candidateStem.replace(/-0?1$/, "");
+        return (
+          candidateStem === expectedStem.toLocaleLowerCase("es-AR") ||
+          normalizedCandidateStem === normalizedExpectedStem
+        );
+      });
+      const closeMatchMessage = closeMatches.length
+        ? ` Coincidencia por nombre base: ${closeMatches.join(", ")}.`
+        : "";
+      result.warnings.push(
+        `Fila ${csvRowNumber} (${record.SKU}): no existe exactamente "${imageName}" en "${options.imagesDirectory}"; se usará el placeholder.${closeMatchMessage}`,
+      );
+    }
 
     try {
       if (!record.SKU) throw new Error("SKU obligatorio.");
-      if (seenSkus.has(record.SKU)) throw new Error(`SKU duplicado: ${record.SKU}.`);
+      if (seenSkus.has(record.SKU))
+        throw new Error(`SKU duplicado: ${record.SKU}.`);
       seenSkus.add(record.SKU);
       if (!record.Nombre) throw new Error("Nombre obligatorio.");
       if (!record.Categoria) throw new Error("Categoría obligatoria.");
@@ -190,14 +254,26 @@ export function importCatalogCsv(
       if (!Number.isInteger(stock)) throw new Error("Stock debe ser entero.");
       const visible = parseFlag(record.Visible, "Visible");
       const featured = parseFlag(record.Destacado, "Destacado");
-      const offerPrice = record["Precio Oferta"]
-        ? parseNonNegativeNumber(record["Precio Oferta"], "Precio Oferta")
-        : undefined;
-      if (typeof offerPrice === "number" && offerPrice >= price) {
-        throw new Error("Precio Oferta debe ser menor que Precio.");
+      const offer = parseFlag(record.Oferta, "Oferta");
+      let offerPrice: number | undefined;
+
+      if (offer) {
+        offerPrice = record["Precio Oferta"]
+          ? parseNonNegativeNumber(record["Precio Oferta"], "Precio Oferta")
+          : undefined;
+        const offerError = getOfferValidationError({
+          offer,
+          offerPrice,
+          price,
+        });
+        if (offerError) throw new Error(offerError);
+      } else if (record["Precio Oferta"]) {
+        result.ignoredOfferPriceRows.push(csvRowNumber);
+        result.warnings.push(
+          `Fila ${csvRowNumber} (${record.SKU}): Oferta es 0; se ignora Precio Oferta "${record["Precio Oferta"]}".`,
+        );
       }
 
-      const imageNames = [record["Imagen 1"], record["Imagen 2"]].filter(Boolean);
       imageNames.forEach(validateImageName);
 
       const baseSlug = createSlug(record.Nombre) || createSlug(record.SKU);
@@ -213,6 +289,7 @@ export function importCatalogCsv(
         ...(record.Material ? { material: record.Material } : {}),
         description: record.Descripcion,
         price,
+        offer,
         ...(typeof offerPrice === "number" ? { offerPrice } : {}),
         stock,
         featured,
@@ -221,11 +298,7 @@ export function importCatalogCsv(
 
       const images: ProductImage[] = [];
       for (const imageName of imageNames) {
-        const absolutePath = path.resolve(options.imagesDirectory, imageName);
-        if (!imageExists(absolutePath)) {
-          result.warnings.push(
-            `Fila ${csvRowNumber} (${record.SKU}): no existe ${imageName}; se usará el placeholder.`,
-          );
+        if (!existingImageNames.has(imageName)) {
           continue;
         }
         images.push({
@@ -238,7 +311,10 @@ export function importCatalogCsv(
       if (images.length) result.imagesBySku[product.sku] = images;
     } catch (error) {
       const reason = error instanceof Error ? error.message : String(error);
-      result.errors.push(`Fila ${csvRowNumber}: ${reason}`);
+      const rowLabel = record.SKU
+        ? `Fila ${csvRowNumber} (${record.SKU})`
+        : `Fila ${csvRowNumber}`;
+      result.errors.push(`${rowLabel}: ${reason}`);
       result.discardedRows.push({ row: csvRowNumber, reason });
     }
   });
