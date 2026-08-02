@@ -38,6 +38,7 @@ Categorías iniciales:
 - `tobilleras`
 - `gorras`
 - `accesorios`
+- `combos`
 
 ## Productos Normalizados
 
@@ -60,6 +61,7 @@ Ejemplos:
 - `SOL-PUL-0001`
 - `SOL-ANI-0001`
 - `SOL-CAD-0001`
+- `SOL-CMB-0001`
 
 ## Slug
 
@@ -122,6 +124,11 @@ Archivos pendientes de alta como producto:
 ignora. Con `offer: true`, `offerPrice` debe ser numérico, mayor que cero y menor
 que `price`. La aplicación usa las utilidades de `src/features/catalog/offer.ts`
 para precio efectivo, precio anterior y estado de oferta.
+
+La categoría `combos` no activa una oferta por sí sola. Un combo aparece en
+`/ofertas` únicamente cuando cumple la misma regla comercial que cualquier otro
+producto. El ahorro visible se calcula en runtime como `price - offerPrice`; no
+se guarda como un dato independiente.
 
 ## Visibilidad Y Destacados
 

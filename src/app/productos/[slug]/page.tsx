@@ -6,6 +6,7 @@ import { ProductGallery } from "@/components/product-gallery";
 import { ProductStockStatus } from "@/components/product-stock-status";
 import { RelatedProducts } from "@/components/related-products";
 import { PublicLayout } from "@/components/layout/public-layout";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Heading } from "@/components/ui/heading";
@@ -16,6 +17,7 @@ import { getCategoryByValue } from "@/config/categories";
 import { siteConfig } from "@/config/site";
 import { AddToCartButton } from "@/features/cart";
 import {
+  calculateSavingsAmount,
   getProductBySlug,
   getEffectivePrice,
   getProductImagePaths,
@@ -83,6 +85,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const images = getProductImagePaths(product.sku);
   const relatedProducts = getRelatedProducts(product, 4);
   const whatsappMessage = `Hola Soluna, quisiera consultar por:\n\n${product.name}\nSKU: ${product.sku}`;
+  const isCombo = product.category === "combos";
+  const savings = calculateSavingsAmount(product);
 
   return (
     <PublicLayout>
@@ -97,6 +101,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               <p className="text-eyebrow font-bold uppercase text-accent-gold">
                 {category?.label ?? product.category}
               </p>
+              {isCombo ? <Badge className="mt-3">Combo especial</Badge> : null}
               <Heading as="h1" className="mt-3 text-h1">
                 {product.name}
               </Heading>
@@ -109,6 +114,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   </span>
                 ) : null}
               </div>
+              {isCombo && savings !== null ? (
+                <p className="mt-3 text-small font-bold text-foreground">
+                  Ahorrás {formatCurrency(savings)}
+                </p>
+              ) : null}
 
               <div className="mt-6">
                 <ProductStockStatus stock={product.stock} />
@@ -145,6 +155,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
               <div className="mt-8 space-y-4 text-body text-muted-foreground">
                 <p>{product.description}</p>
+                {isCombo ? (
+                  <p>
+                    El combo se gestiona como un único producto, con stock
+                    propio y sujeto a confirmación de disponibilidad.
+                  </p>
+                ) : null}
                 <p>
                   Envíos disponibles por Correo Argentino y Andreani. El retiro
                   se coordina previamente en San Miguel de Tucumán.

@@ -73,4 +73,25 @@ describe("WhatsApp order message", () => {
     expect(commerceConfig.whatsapp.phone).toBe("5493874093118");
     expect(commerceConfig.whatsapp.phone).toMatch(/^\d+$/);
   });
+
+  it("includes a combo as one order line with SKU, quantity and subtotal", () => {
+    const combo: CartItem = {
+      sku: "SOL-CMB-0001",
+      slug: "combo-inicial",
+      name: "Combo inicial",
+      regularPrice: 65000,
+      effectivePrice: 55000,
+      offerActive: true,
+      stock: 3,
+      quantity: 2,
+    };
+
+    const message = buildWhatsAppOrderMessage([combo]);
+
+    expect(message.match(/1\. Combo inicial/g)).toHaveLength(1);
+    expect(message).toContain("SKU: SOL-CMB-0001");
+    expect(message).toContain("Cantidad: 2");
+    expect(message).toMatch(/Precio unitario:.*55\.000/);
+    expect(message).toMatch(/Subtotal:.*110\.000/);
+  });
 });

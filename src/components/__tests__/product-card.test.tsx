@@ -57,8 +57,30 @@ describe("ProductCard", () => {
 
     renderProductCard(product);
 
-    expect(screen.getByText(/20% off/i)).toBeInTheDocument();
+    expect(screen.getByText(/^oferta$/i)).toBeInTheDocument();
+    expect(screen.getByText(/ahorrás.*2\.000/i)).toBeInTheDocument();
     expect(screen.getByText(/8.000/)).toBeInTheDocument();
     expect(screen.getByText(/10.000/)).toHaveClass("line-through");
+  });
+
+  it("identifies a combo and lets it use the existing cart action", () => {
+    const product: Product = {
+      ...getVisibleProducts()[0],
+      sku: "SOL-CMB-0001",
+      slug: "combo-inicial",
+      name: "Combo inicial",
+      category: "combos",
+      price: 12000,
+      offer: true,
+      offerPrice: 10000,
+      stock: 2,
+    };
+
+    renderProductCard(product);
+
+    expect(screen.getByText(/^combo$/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /agregar combo inicial al carrito/i }),
+    ).toBeEnabled();
   });
 });

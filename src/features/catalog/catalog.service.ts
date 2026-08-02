@@ -23,6 +23,11 @@ export type CategoryWithProductCount = {
   count: number;
 };
 
+export type OfferProductGroups = {
+  combos: Product[];
+  otherOffers: Product[];
+};
+
 export function getProducts(): Product[] {
   return [...products];
 }
@@ -55,6 +60,29 @@ export function getOfferProducts(limit?: number): Product[] {
   return typeof limit === "number"
     ? offerProducts.slice(0, limit)
     : offerProducts;
+}
+
+export function splitOfferProducts(
+  productsToSplit: readonly Product[],
+): OfferProductGroups {
+  const offerProducts = productsToSplit.filter(
+    (product) => product.visible !== false && isOfferActive(product),
+  );
+
+  return {
+    combos: offerProducts.filter((product) => product.category === "combos"),
+    otherOffers: offerProducts.filter(
+      (product) => product.category !== "combos",
+    ),
+  };
+}
+
+export function getOfferCombos(): Product[] {
+  return splitOfferProducts(getVisibleProducts()).combos;
+}
+
+export function getOtherOfferProducts(): Product[] {
+  return splitOfferProducts(getVisibleProducts()).otherOffers;
 }
 
 export function getProductsByCategory(category: ProductCategory): Product[] {

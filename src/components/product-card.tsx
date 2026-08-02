@@ -8,12 +8,13 @@ import { Button } from "@/components/ui/button";
 import { Price } from "@/components/ui/price";
 import { getCategoryByValue } from "@/config/categories";
 import {
-  calculateDiscountPercentage,
+  calculateSavingsAmount,
   getProductPrimaryImage,
   getStockStatus,
   isOfferActive,
 } from "@/features/catalog";
 import { AddToCartButton } from "@/features/cart";
+import { formatCurrency } from "@/lib/formatters";
 import type { Product } from "@/types/product";
 
 type ProductCardProps = {
@@ -24,8 +25,9 @@ export function ProductCard({ product }: ProductCardProps) {
   const image = getProductPrimaryImage(product);
   const stockStatus = getStockStatus(product.stock);
   const hasOffer = isOfferActive(product);
-  const discount = calculateDiscountPercentage(product);
+  const savings = calculateSavingsAmount(product);
   const category = getCategoryByValue(product.category);
+  const isCombo = product.category === "combos";
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-soluna-lg border border-border/85 bg-surface shadow-card transition-all duration-standard ease-soluna hover:-translate-y-1 hover:border-accent-gold/30 hover:shadow-lift focus-within:-translate-y-1 focus-within:border-accent-gold/40 focus-within:shadow-lift">
@@ -42,11 +44,8 @@ export function ProductCard({ product }: ProductCardProps) {
           <ProductImagePlaceholder />
         )}
         <div className="absolute left-3 top-3 flex flex-wrap gap-2">
-          {hasOffer ? (
-            <Badge variant="offer">
-              {discount ? `${discount}% off` : "Oferta"}
-            </Badge>
-          ) : null}
+          {isCombo ? <Badge>Combo</Badge> : null}
+          {hasOffer ? <Badge variant="offer">Oferta</Badge> : null}
           {stockStatus.value === "low-stock" ? (
             <Badge>Últimas unidades</Badge>
           ) : null}
@@ -81,6 +80,11 @@ export function ProductCard({ product }: ProductCardProps) {
         ) : null}
         <div className="mt-auto space-y-3">
           <Price product={product} />
+          {savings !== null ? (
+            <p className="text-small font-bold text-foreground">
+              Ahorrás {formatCurrency(savings)}
+            </p>
+          ) : null}
           <ProductStockStatus stock={product.stock} />
         </div>
         <div className="grid gap-2">

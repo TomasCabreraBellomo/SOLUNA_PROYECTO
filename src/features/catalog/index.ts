@@ -3,7 +3,9 @@ export {
   getCatalogSort,
   getCategoriesWithProductCount,
   getFeaturedProducts,
+  getOfferCombos,
   getOfferProducts,
+  getOtherOfferProducts,
   getProductBySku,
   getProductBySlug,
   getProductColors,
@@ -17,7 +19,9 @@ export {
   getVisibleProducts,
   hasNewestSort,
   normalizeCatalogFilters,
+  splitOfferProducts,
 } from "./catalog.service";
+export type { OfferProductGroups } from "./catalog.service";
 export {
   createProductSlug,
   filterProducts,
@@ -26,6 +30,7 @@ export {
   sortProducts,
 } from "./catalog.utils";
 export {
+  calculateSavingsAmount,
   calculateDiscountPercentage,
   getEffectivePrice,
   getOfferValidationError,

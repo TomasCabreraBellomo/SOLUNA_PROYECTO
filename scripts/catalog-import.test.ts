@@ -130,6 +130,24 @@ describe("catalog importer", () => {
     });
   });
 
+  it("accepts combos as a typed catalog category", () => {
+    const result = run({
+      SKU: "SOL-CMB-0001",
+      Nombre: "Combo inicial",
+      Categoria: "combos",
+      Oferta: "1",
+      PrecioOferta: "8000",
+    });
+
+    expect(result.errors).toEqual([]);
+    expect(result.products[0]).toMatchObject({
+      sku: "SOL-CMB-0001",
+      category: "combos",
+      offer: true,
+      offerPrice: 8000,
+    });
+  });
+
   it.each([
     ["vacío", ""],
     ["no numérico", "inválido"],

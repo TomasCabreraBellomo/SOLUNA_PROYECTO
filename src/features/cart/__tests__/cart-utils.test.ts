@@ -103,4 +103,27 @@ describe("cart utilities", () => {
       offerActive: true,
     });
   });
+
+  it("adds a combo as one catalog product with its own stock and price", () => {
+    const combo: Product = {
+      sku: "SOL-CMB-0001",
+      slug: "combo-inicial",
+      name: "Combo inicial",
+      category: "combos",
+      description: "Incluye pulsera y charm.",
+      price: 65000,
+      offer: true,
+      offerPrice: 55000,
+      stock: 3,
+    };
+    const cartCombo = createCartProduct(combo);
+
+    expect(addProductToCart([], cartCombo)).toEqual([
+      expect.objectContaining({
+        sku: combo.sku,
+        effectivePrice: 55000,
+        quantity: 1,
+      }),
+    ]);
+  });
 });

@@ -13,10 +13,13 @@ comillas, comas dentro de campos y columnas vacías al final.
 
 - `SKU`, nombre y categoría son obligatorios; el SKU debe ser único.
 - La categoría debe existir en `src/config/categories.ts`.
+- `combos` es una categoría válida; `ofertas` no es una categoría.
 - Precio debe ser numérico y no negativo; stock debe ser entero y no negativo.
 - Visible y Destacado aceptan solamente `0` o `1`.
 - Precio Oferta puede quedar vacío; si se informa, debe ser numérico, no
   negativo y menor que Precio.
+- Oferta acepta solamente `0` o `1`. Para una promoción activa debe valer `1` y
+  Precio Oferta debe ser mayor que cero y menor que Precio.
 - Material y descripción pueden quedar vacíos: el importador no inventa datos.
 - Las imágenes aceptan `.jpg`, `.jpeg`, `.png` o `.webp`. Indicar solo el nombre
   del archivo, sin rutas, separadores ni `..`.
@@ -47,6 +50,10 @@ catálogo existente.
 3. Ejecutar la importación.
 4. Corregir las filas descartadas y revisar advertencias.
 5. Ejecutar lint, typecheck, tests y build antes de publicar.
+
+Para un combo, usar un SKU con prefijo `SOL-CMB`, describir claramente el
+contenido y declarar su propio precio, stock y archivos de imagen. Consultar
+`docs/offers-and-combos.md` para el ejemplo completo y las limitaciones actuales.
 
 Los slugs se generan desde el nombre. Si se repiten, el segundo incorpora el SKU
 para mantener unicidad estable. Los productos con `Visible = 0` permanecen en

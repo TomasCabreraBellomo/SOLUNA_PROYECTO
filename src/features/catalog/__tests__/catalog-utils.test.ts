@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { products } from "@/data/products";
 import {
+  calculateSavingsAmount,
   calculateDiscountPercentage,
   filterProducts,
   getEffectivePrice,
@@ -11,6 +12,7 @@ import {
   isOfferActive,
   normalizeSearchText,
   sortProducts,
+  splitOfferProducts,
   validateCatalogProducts,
 } from "@/features/catalog";
 import { formatCurrency } from "@/lib/formatters";
@@ -79,9 +81,55 @@ describe("catalog utilities", () => {
     };
 
     expect(calculateDiscountPercentage(offerProduct)).toBe(33);
+    expect(calculateSavingsAmount(offerProduct)).toBe(4000);
+    expect(calculateSavingsAmount(regularProduct)).toBeNull();
     expect(calculateDiscountPercentage(regularProduct)).toBeNull();
     expect(getEffectivePrice(regularProduct)).toBe(12000);
     expect(getPreviousPrice(regularProduct)).toBeNull();
+  });
+
+  it("separates valid offer combos from other offers without duplicates", () => {
+    const baseProduct = products[0];
+    const comboOffer: Product = {
+      ...baseProduct,
+      sku: "SOL-CMB-0001",
+      slug: "combo-activo",
+      category: "combos",
+      offer: true,
+      offerPrice: baseProduct.price - 1000,
+    };
+    const comboWithoutOffer: Product = {
+      ...comboOffer,
+      sku: "SOL-CMB-0002",
+      slug: "combo-regular",
+      offer: false,
+      offerPrice: undefined,
+    };
+    const regularOffer: Product = {
+      ...baseProduct,
+      sku: "SOL-PUL-TEST",
+      slug: "pulsera-en-oferta",
+      category: "pulseras",
+      offer: true,
+      offerPrice: baseProduct.price - 2000,
+    };
+
+    const groups = splitOfferProducts([
+      comboOffer,
+      comboWithoutOffer,
+      regularOffer,
+    ]);
+
+    expect(groups.combos.map((product) => product.sku)).toEqual([
+      comboOffer.sku,
+    ]);
+    expect(groups.otherOffers.map((product) => product.sku)).toEqual([
+      regularOffer.sku,
+    ]);
+    expect(
+      new Set([...groups.combos, ...groups.otherOffers].map(({ sku }) => sku))
+        .size,
+    ).toBe(groups.combos.length + groups.otherOffers.length);
   });
 
   it("does not include a product in offers based only on Precio Oferta", () => {

@@ -90,6 +90,14 @@ export const productCategories = [
     order: 100,
     icon: Gift,
   },
+  {
+    value: "combos",
+    label: "Combos",
+    slug: "combos",
+    description: "Selecciones de accesorios reunidas en un solo producto.",
+    order: 110,
+    icon: Gift,
+  },
 ] as const satisfies readonly {
   value: string;
   label: string;

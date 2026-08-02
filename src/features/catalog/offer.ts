@@ -40,6 +40,14 @@ export function getPreviousPrice(product: OfferProduct): number | null {
   return isOfferActive(product) ? product.price : null;
 }
 
+export function calculateSavingsAmount(product: OfferProduct): number | null {
+  if (!isOfferActive(product) || typeof product.offerPrice !== "number") {
+    return null;
+  }
+
+  return product.price - product.offerPrice;
+}
+
 export function calculateDiscountPercentage(
   product: OfferProduct,
 ): number | null {
