@@ -3,9 +3,9 @@ import {
   MessagesSquare,
   PackageCheck,
   Sparkles,
-  Star,
   Truck,
 } from "lucide-react";
+import Image from "next/image";
 
 import { BenefitCard } from "@/components/benefit-card";
 import { CategoryCard } from "@/components/category-card";
@@ -101,28 +101,19 @@ export function HomePage() {
             </div>
           </div>
 
-          <div className="reveal-visible relative min-h-[22rem] overflow-hidden rounded-soluna-lg border border-border bg-surface-muted p-6 shadow-soft sm:min-h-[28rem] sm:p-8">
-            <div className="absolute left-8 top-8 size-28 rounded-full border border-accent-gold/35" />
-            <div className="absolute right-10 top-12 size-36 rounded-full bg-secondary" />
-            <div className="absolute bottom-10 left-10 size-44 rounded-full border border-accent-silver/50" />
-            <div className="absolute bottom-16 right-12 h-28 w-40 rounded-full bg-surface shadow-lift" />
-            <div className="relative flex h-full min-h-[19rem] items-center justify-center sm:min-h-[24rem]">
-              <div className="grid size-52 place-items-center rounded-full border border-accent-gold/30 bg-background/80 shadow-soft sm:size-64">
-                <div className="size-28 rounded-full border-[16px] border-secondary bg-transparent shadow-inner sm:size-36 sm:border-[18px]" />
-              </div>
-              <Sparkles
-                aria-hidden="true"
-                className="absolute right-16 top-20 text-accent-gold"
-                size={34}
-                strokeWidth={1.3}
-              />
-              <Star
-                aria-hidden="true"
-                className="absolute bottom-24 left-20 text-accent-silver"
-                size={28}
-                strokeWidth={1.4}
-              />
-            </div>
+          <div className="reveal-visible relative aspect-[4/5] min-h-0 overflow-hidden rounded-soluna-lg border border-border bg-surface-muted shadow-soft ring-1 ring-inset ring-background/30 sm:aspect-[4/3] lg:aspect-auto lg:min-h-[32rem]">
+            <Image
+              alt="Pulsera plateada con charms de colores sobre un fondo cálido"
+              className="object-cover object-[52%_58%] sm:object-[center_62%] lg:object-[center_58%]"
+              fill
+              priority
+              sizes="(min-width: 1280px) 38vw, (min-width: 1024px) 42vw, (min-width: 640px) calc(100vw - 4rem), calc(100vw - 2rem)"
+              src="/images/hero/soluna-hero.jpg"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 bg-gradient-to-t from-secondary/20 via-transparent to-background/5"
+            />
           </div>
         </Container>
       </Section>

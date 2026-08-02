@@ -18,5 +18,16 @@ describe("premium home hero", () => {
     expect(
       screen.getByRole("link", { name: /ver guía de cuidados/i }),
     ).toHaveAttribute("href", "/cuida-tus-joyas");
+
+    const heroImage = screen.getByRole("img", {
+      name: /pulsera plateada con charms de colores/i,
+    });
+    expect(heroImage).toHaveAttribute("src", "/images/hero/soluna-hero.jpg");
+    expect(heroImage).toHaveClass("object-cover");
+    expect(heroImage).toHaveAttribute("data-priority", "true");
+    expect(heroImage).toHaveAttribute(
+      "sizes",
+      expect.stringContaining("100vw"),
+    );
   });
 });
