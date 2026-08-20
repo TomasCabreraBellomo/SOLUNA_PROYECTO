@@ -26,7 +26,7 @@ export const products: Product[] = [
     "offer": false,
     "stock": 3,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-PUL-0002",
@@ -39,7 +39,7 @@ export const products: Product[] = [
     "offer": false,
     "stock": 2,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-ANI-0004",
@@ -91,7 +91,7 @@ export const products: Product[] = [
     "offer": false,
     "stock": 2,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-CAD-0003",
@@ -416,7 +416,7 @@ export const products: Product[] = [
     "offer": false,
     "stock": 1,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-ARO-0004",
@@ -429,7 +429,7 @@ export const products: Product[] = [
     "offer": false,
     "stock": 1,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-PUL-0007",
@@ -653,7 +653,7 @@ export const products: Product[] = [
     "offer": false,
     "stock": 1,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-CAD-0012",
@@ -744,7 +744,7 @@ export const products: Product[] = [
     "offer": false,
     "stock": 1,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-ARO-0011",
@@ -770,7 +770,7 @@ export const products: Product[] = [
     "offer": false,
     "stock": 1,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-GOR-0002",
@@ -783,7 +783,7 @@ export const products: Product[] = [
     "offer": false,
     "stock": 1,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-ARO-00012",
@@ -822,9 +822,9 @@ export const products: Product[] = [
     "price": 150000,
     "offer": true,
     "offerPrice": 135000,
-    "stock": 1,
+    "stock": 0,
     "featured": true,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-CMB-0002",
@@ -836,8 +836,8 @@ export const products: Product[] = [
     "price": 75000,
     "offer": true,
     "offerPrice": 60000,
-    "stock": 3,
+    "stock": 0,
     "featured": true,
-    "visible": true
+    "visible": false
   }
 ];

@@ -32,6 +32,12 @@ export const productImagesBySku = {
       "alt": "pulseras cubic de Soluna"
     }
   ],
+  "SOL-CHA-0003": [
+    {
+      "src": "/images/products/SOL-CHA-0003-01.jpg",
+      "alt": "Charm spiderman miles Morales de Soluna"
+    }
+  ],
   "SOL-CHA-0005": [
     {
       "src": "/images/products/SOL-CHA-0005-01.jpg",
@@ -50,6 +56,12 @@ export const productImagesBySku = {
       "alt": "Charm corazón strass de Soluna"
     }
   ],
+  "SOL-CHA-0008": [
+    {
+      "src": "/images/products/SOL-CHA-0008-01.jpg",
+      "alt": "Charm gato alicia de Soluna"
+    }
+  ],
   "SOL-CHA-0009": [
     {
       "src": "/images/products/SOL-CHA-0009-01.jpg",
@@ -66,6 +78,12 @@ export const productImagesBySku = {
     {
       "src": "/images/products/SOL-CHA-0011-01.jpg",
       "alt": "Charm stitch rosa de Soluna"
+    }
+  ],
+  "SOL-CHA-0012": [
+    {
+      "src": "/images/products/SOL-CHA-0012-01.jpg",
+      "alt": "Charm alienígena toy story de Soluna"
     }
   ],
   "SOL-CHA-0013": [
@@ -102,6 +120,12 @@ export const productImagesBySku = {
     {
       "src": "/images/products/SOL-CAD-0007-01.jpg",
       "alt": "Cadena con rosa blanco pastel de Soluna"
+    }
+  ],
+  "SOL-BRA-0005": [
+    {
+      "src": "/images/products/SOL-BRA-0005-01.jpeg",
+      "alt": "Brazalete de amistad mariposa de Soluna"
     }
   ],
   "SOL-BRA-0006": [
@@ -186,6 +210,16 @@ export const productImagesBySku = {
     {
       "src": "/images/products/SOL-CAD-0010-01.jpg",
       "alt": "Cadenita The Sun carta Tarot de Soluna"
+    }
+  ],
+  "SOL-CAD-0013": [
+    {
+      "src": "/images/products/SOL-CAD-0013-01.jpg",
+      "alt": "Cadenita Virgencita de Guadalupe de Soluna"
+    },
+    {
+      "src": "/images/products/SOL-CAD-0013-02.jpg",
+      "alt": "Cadenita Virgencita de Guadalupe de Soluna"
     }
   ],
   "SOL-CAD-0014": [
