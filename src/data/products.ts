@@ -11,7 +11,7 @@ export const products: Product[] = [
     "description": "",
     "price": 10000,
     "offer": false,
-    "stock": 3,
+    "stock": 2,
     "featured": false,
     "visible": true
   },
@@ -37,7 +37,7 @@ export const products: Product[] = [
     "description": "",
     "price": 8000,
     "offer": false,
-    "stock": 3,
+    "stock": 2,
     "featured": false,
     "visible": true
   },
@@ -63,7 +63,7 @@ export const products: Product[] = [
     "description": "",
     "price": 10000,
     "offer": false,
-    "stock": 2,
+    "stock": 1,
     "featured": false,
     "visible": true
   },
@@ -76,7 +76,7 @@ export const products: Product[] = [
     "description": "",
     "price": 30000,
     "offer": false,
-    "stock": 3,
+    "stock": 1,
     "featured": false,
     "visible": true
   },
@@ -108,8 +108,8 @@ export const products: Product[] = [
   },
   {
     "sku": "SOL-PUL-0004",
-    "slug": "pulserass-cubic",
-    "name": "pulserass cubic",
+    "slug": "pulseras-cubic",
+    "name": "pulseras cubic",
     "category": "pulseras",
     "material": "Acero inoxidable",
     "description": "",
@@ -134,8 +134,8 @@ export const products: Product[] = [
   },
   {
     "sku": "SOL-CHA-0004",
-    "slug": "charm-hello-kitty-lila",
-    "name": "Charm hello kitty lila",
+    "slug": "charm-hello-kitty-kuromi",
+    "name": "Charm hello kitty Kuromi",
     "category": "charms",
     "material": "Plata 925",
     "description": "Charm de plata 925 de excelente calidad, compatible con pulseras Pandora y similares.",
@@ -271,9 +271,9 @@ export const products: Product[] = [
     "description": "Charm de plata 925 de excelente calidad, compatible con pulseras Pandora y similares.",
     "price": 35000,
     "offer": false,
-    "stock": 1,
+    "stock": 0,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-CHA-0015",
@@ -323,7 +323,7 @@ export const products: Product[] = [
     "description": "Cadenita de acero inoxidable de excelente calidad, elegi el modelo que mas te guste!",
     "price": 12000,
     "offer": false,
-    "stock": 2,
+    "stock": 1,
     "featured": false,
     "visible": true
   },
@@ -460,8 +460,8 @@ export const products: Product[] = [
   },
   {
     "sku": "SOL-PUL-0009",
-    "slug": "pulseras-plateada-estrellas-strass",
-    "name": "pulseras plateada estrellas strass",
+    "slug": "pulseras-plateada-3-estrellas-strass",
+    "name": "pulseras plateada 3 estrellas strass",
     "category": "pulseras",
     "material": "Acero inoxidable",
     "description": "",
@@ -521,9 +521,9 @@ export const products: Product[] = [
     "description": "aros de acero inoxidable de excelente calidad, elegi el modelo que mas te guste!",
     "price": 12000,
     "offer": false,
-    "stock": 1,
+    "stock": 0,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-PUL-0011",
@@ -534,9 +534,9 @@ export const products: Product[] = [
     "description": "Charm de plata 925 de excelente calidad, compatible con pulseras Pandora y similares.",
     "price": 30000,
     "offer": false,
-    "stock": 1,
+    "stock": 0,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-PUL-0012",
@@ -547,9 +547,9 @@ export const products: Product[] = [
     "description": "pulseras tipo pandora plateada, con baño de plata 925 con forma de infinito",
     "price": 30000,
     "offer": false,
-    "stock": 2,
+    "stock": 0,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-PUL-0013",
@@ -560,9 +560,9 @@ export const products: Product[] = [
     "description": "pulseras tipo Pandora bañada en plata con un corazon con strass",
     "price": 30000,
     "offer": false,
-    "stock": 1,
+    "stock": 0,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-PUL-0014",
@@ -592,8 +592,8 @@ export const products: Product[] = [
   },
   {
     "sku": "SOL-PUL-0016",
-    "slug": "pulseras-dorada-con-estrellas",
-    "name": "pulseras dorada con estrellas",
+    "slug": "pulseras-doble-dorada-con-estrellas",
+    "name": "pulseras doble dorada con estrellas",
     "category": "pulseras",
     "material": "Cobre",
     "description": "pulseras dorada brillosa con dijes de estrellas.",
@@ -703,9 +703,9 @@ export const products: Product[] = [
     "description": "aros de acero inoxidable de excelente calidad, elegi el modelo que mas te guste!",
     "price": 8000,
     "offer": false,
-    "stock": 1,
+    "stock": 0,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-ARO-0008",
@@ -742,7 +742,7 @@ export const products: Product[] = [
     "description": "aros de acero inoxidable de excelente calidad, elegi el modelo que mas te guste!",
     "price": 10000,
     "offer": false,
-    "stock": 2,
+    "stock": 1,
     "featured": false,
     "visible": true
   },

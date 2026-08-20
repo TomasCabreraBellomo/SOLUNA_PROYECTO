@@ -26,6 +26,12 @@ export const productImagesBySku = {
       "alt": "Cadenitas sol acero dorado de Soluna"
     }
   ],
+  "SOL-PUL-0004": [
+    {
+      "src": "/images/products/SOL-PUL-0004-01.jpeg",
+      "alt": "pulseras cubic de Soluna"
+    }
+  ],
   "SOL-CHA-0005": [
     {
       "src": "/images/products/SOL-CHA-0005-01.jpg",
@@ -104,10 +110,34 @@ export const productImagesBySku = {
       "alt": "Brazalete para fiesta de Soluna"
     }
   ],
+  "SOL-ARO-0002": [
+    {
+      "src": "/images/products/SOL-ARO-0002-01.jpeg",
+      "alt": "aros animal print de Soluna"
+    }
+  ],
+  "SOL-PUL-0009": [
+    {
+      "src": "/images/products/SOL-PUL-0009-01.jpeg",
+      "alt": "pulseras plateada 3 estrellas strass de Soluna"
+    }
+  ],
+  "SOL-ARO-0012": [
+    {
+      "src": "/images/products/SOL-ARO-0012-01.jpeg",
+      "alt": "Arito espiral de Soluna"
+    }
+  ],
   "SOL-CHA-0016": [
     {
       "src": "/images/products/SOL-CHA-0016-01.jpg",
       "alt": "Charm hello kitty de Soluna"
+    }
+  ],
+  "SOL-ARO-0005": [
+    {
+      "src": "/images/products/SOL-ARO-0005-01.jpeg",
+      "alt": "aros estrella de Soluna"
     }
   ],
   "SOL-ARO-0006": [
@@ -137,7 +167,7 @@ export const productImagesBySku = {
   "SOL-PUL-0016": [
     {
       "src": "/images/products/SOL-PUL-0016-01.jpg",
-      "alt": "pulseras dorada con estrellas de Soluna"
+      "alt": "pulseras doble dorada con estrellas de Soluna"
     }
   ],
   "SOL-PUL-0017": [
@@ -162,6 +192,12 @@ export const productImagesBySku = {
     {
       "src": "/images/products/SOL-CAD-0014-01.jpg",
       "alt": "Cadenita Llave con strass de Soluna"
+    }
+  ],
+  "SOL-ARO-0008": [
+    {
+      "src": "/images/products/SOL-ARO-0008-01.jpg",
+      "alt": "aros Arbol de la vida dorados de Soluna"
     }
   ],
   "SOL-ARO-0009": [
