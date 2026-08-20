@@ -48,7 +48,7 @@ export const products: Product[] = [
     "category": "anillos",
     "material": "Acero inoxidable",
     "description": "",
-    "price": 5000,
+    "price": 3000,
     "offer": false,
     "stock": 20,
     "featured": false,
@@ -364,7 +364,7 @@ export const products: Product[] = [
     "offer": false,
     "stock": 1,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-BRA-0005",
@@ -442,7 +442,7 @@ export const products: Product[] = [
     "offer": false,
     "stock": 1,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-TOB-0008",
@@ -456,7 +456,7 @@ export const products: Product[] = [
     "offerPrice": 5000,
     "stock": 1,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-PUL-0009",
@@ -467,7 +467,7 @@ export const products: Product[] = [
     "description": "",
     "price": 10000,
     "offer": true,
-    "offerPrice": 8000,
+    "offerPrice": 7000,
     "stock": 1,
     "featured": false,
     "visible": true
@@ -666,7 +666,7 @@ export const products: Product[] = [
     "offer": false,
     "stock": 1,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-CAD-0013",
@@ -731,7 +731,7 @@ export const products: Product[] = [
     "offer": false,
     "stock": 1,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-ARO-0010",

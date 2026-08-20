@@ -234,10 +234,10 @@ export const productImagesBySku = {
       "alt": "aros Arbol de la vida dorados de Soluna"
     }
   ],
-  "SOL-ARO-0009": [
+  "SOL-ARO-0011": [
     {
       "src": "/images/products/SOL-ARO-0009-01.jpg",
-      "alt": "aros Corazón reversible doradas de Soluna"
+      "alt": "aros corazon plateado con strass de Soluna"
     }
   ],
   "SOL-ARO-00012": [
