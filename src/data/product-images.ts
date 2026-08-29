@@ -158,6 +158,12 @@ export const productImagesBySku = {
       "alt": "Charm hello kitty de Soluna"
     }
   ],
+  "SOL-ARO-0005": [
+    {
+      "src": "/images/products/SOL-ARO-0005-01.jpeg",
+      "alt": "aros estrella de Soluna"
+    }
+  ],
   "SOL-ARO-0006": [
     {
       "src": "/images/products/SOL-ARO-0006-01.jpg",
@@ -249,11 +255,11 @@ export const productImagesBySku = {
   "SOL-ANI-0005": [
     {
       "src": "/images/products/SOL-ANI-0005-01.jpg",
-      "alt": "Anillos dorados de acero quirurgico de Soluna"
+      "alt": "Anillos dorados de Soluna"
     },
     {
       "src": "/images/products/SOL-ANI-0005-01.jpg",
-      "alt": "Anillos dorados de acero quirurgico de Soluna"
+      "alt": "Anillos dorados de Soluna"
     }
   ],
   "SOL-CMB-0002": [

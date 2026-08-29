@@ -29,5 +29,15 @@ describe("premium home hero", () => {
       "sizes",
       expect.stringContaining("100vw"),
     );
+
+    expect(
+      screen.getByRole("link", { name: /descubrir ofertas y combos/i }),
+    ).toHaveAttribute("href", "/ofertas");
+    expect(
+      screen.queryByText(/ofertas seleccionadas próximamente/i),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/la sección queda preparada/i),
+    ).not.toBeInTheDocument();
   });
 });

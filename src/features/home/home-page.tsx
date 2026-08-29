@@ -184,14 +184,17 @@ export function HomePage() {
         </Container>
       </Section>
 
-      <Section>
+      <Section
+        aria-label="Acceso a ofertas y combos"
+        className="py-10 sm:py-14"
+      >
         <Container>
-          <EmptyState
-            actionHref="/ofertas"
-            actionLabel="Ver sección de ofertas"
-            description="La sección queda preparada para destacar oportunidades reales cuando existan productos con descuento cargados en el catálogo."
-            title="Ofertas seleccionadas próximamente"
-          />
+          <Reveal className="flex justify-center rounded-soluna-lg border border-accent-gold/25 bg-gradient-to-r from-surface via-background to-secondary/70 px-6 py-8 shadow-card sm:py-10">
+            <Button className="w-full sm:w-auto" href="/ofertas">
+              <Sparkles aria-hidden="true" size={18} strokeWidth={1.7} />
+              Descubrir ofertas y combos
+            </Button>
+          </Reveal>
         </Container>
       </Section>
 
