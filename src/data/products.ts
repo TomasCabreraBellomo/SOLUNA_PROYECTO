@@ -65,7 +65,7 @@ export const products: Product[] = [
     "offer": false,
     "stock": 1,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-CAD-0002",
@@ -74,7 +74,7 @@ export const products: Product[] = [
     "category": "cadenas",
     "material": "Acero inoxidable",
     "description": "",
-    "price": 30000,
+    "price": 13500,
     "offer": false,
     "stock": 1,
     "featured": false,
@@ -137,8 +137,8 @@ export const products: Product[] = [
     "slug": "charm-hello-kitty-kuromi",
     "name": "Charm hello kitty Kuromi",
     "category": "charms",
-    "material": "Plata 925",
-    "description": "Charm de plata 925 de excelente calidad, compatible con pulseras Pandora y similares.",
+    "material": "Acero inoxidable",
+    "description": "Charm de acero inoxidable",
     "price": 10000,
     "offer": false,
     "stock": 1,
@@ -484,7 +484,7 @@ export const products: Product[] = [
     "offerPrice": 5000,
     "stock": 1,
     "featured": false,
-    "visible": true
+    "visible": false
   },
   {
     "sku": "SOL-CHA-0016",
@@ -882,8 +882,8 @@ export const products: Product[] = [
   },
   {
     "sku": "SOL-CHA-0018",
-    "slug": "charm-sticth-estudiante",
-    "name": "charm sticth estudiante",
+    "slug": "charm-stitch-estudiante",
+    "name": "charm Stitch estudiante",
     "category": "charms",
     "material": "plata 925",
     "description": "Charm de plata 925 de excelente calidad, compatible con pulseras Pandora y similares.",

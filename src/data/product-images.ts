@@ -32,6 +32,12 @@ export const productImagesBySku = {
       "alt": "Cadenita 11:11 dorada de Soluna"
     }
   ],
+  "SOL-PUL-0004": [
+    {
+      "src": "/images/products/SOL-PUL-0004-01.jpeg",
+      "alt": "pulseras cubic de Soluna"
+    }
+  ],
   "SOL-CHA-0003": [
     {
       "src": "/images/products/SOL-CHA-0003-01.jpg",
@@ -134,6 +140,18 @@ export const productImagesBySku = {
       "alt": "Brazalete para fiesta de Soluna"
     }
   ],
+  "SOL-ARO-0002": [
+    {
+      "src": "/images/products/SOL-ARO-0002-01.jpeg",
+      "alt": "aros animal print de Soluna"
+    }
+  ],
+  "SOL-PUL-0009": [
+    {
+      "src": "/images/products/SOL-PUL-0009-01.jpeg",
+      "alt": "pulseras plateada 3 estrellas strass de Soluna"
+    }
+  ],
   "SOL-CHA-0016": [
     {
       "src": "/images/products/SOL-CHA-0016-01.jpg",
@@ -192,6 +210,16 @@ export const productImagesBySku = {
     {
       "src": "/images/products/SOL-CAD-0010-01.jpg",
       "alt": "Cadenita The Sun carta Tarot de Soluna"
+    }
+  ],
+  "SOL-CAD-0013": [
+    {
+      "src": "/images/products/SOL-CAD-0013-01.jpeg",
+      "alt": "Cadenita Virgencita de Guadalupe de Soluna"
+    },
+    {
+      "src": "/images/products/SOL-CAD-0013-02.jpeg",
+      "alt": "Cadenita Virgencita de Guadalupe de Soluna"
     }
   ],
   "SOL-CAD-0014": [
@@ -255,7 +283,7 @@ export const productImagesBySku = {
   "SOL-CHA-0018": [
     {
       "src": "/images/products/SOL-CHA-0018-01.jpeg",
-      "alt": "charm sticth estudiante de Soluna"
+      "alt": "charm Stitch estudiante de Soluna"
     }
   ],
   "SOL-CAD-0016": [
