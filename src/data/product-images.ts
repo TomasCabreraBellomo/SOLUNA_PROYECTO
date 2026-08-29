@@ -26,10 +26,10 @@ export const productImagesBySku = {
       "alt": "Cadenitas sol acero dorado de Soluna"
     }
   ],
-  "SOL-PUL-0004": [
+  "SOL-CAD-0003": [
     {
-      "src": "/images/products/SOL-PUL-0004-01.jpeg",
-      "alt": "pulseras cubic de Soluna"
+      "src": "/images/products/SOL-CAD-0003-01.jpeg",
+      "alt": "Cadenita 11:11 dorada de Soluna"
     }
   ],
   "SOL-CHA-0003": [
@@ -134,40 +134,22 @@ export const productImagesBySku = {
       "alt": "Brazalete para fiesta de Soluna"
     }
   ],
-  "SOL-ARO-0002": [
-    {
-      "src": "/images/products/SOL-ARO-0002-01.jpeg",
-      "alt": "aros animal print de Soluna"
-    }
-  ],
-  "SOL-PUL-0009": [
-    {
-      "src": "/images/products/SOL-PUL-0009-01.jpeg",
-      "alt": "pulseras plateada 3 estrellas strass de Soluna"
-    }
-  ],
-  "SOL-ARO-0012": [
-    {
-      "src": "/images/products/SOL-ARO-0012-01.jpeg",
-      "alt": "Arito espiral de Soluna"
-    }
-  ],
   "SOL-CHA-0016": [
     {
       "src": "/images/products/SOL-CHA-0016-01.jpg",
       "alt": "Charm hello kitty de Soluna"
     }
   ],
-  "SOL-ARO-0005": [
-    {
-      "src": "/images/products/SOL-ARO-0005-01.jpeg",
-      "alt": "aros estrella de Soluna"
-    }
-  ],
   "SOL-ARO-0006": [
     {
       "src": "/images/products/SOL-ARO-0006-01.jpg",
       "alt": "aros Antonella plateados de Soluna"
+    }
+  ],
+  "SOL-PUL-0012": [
+    {
+      "src": "/images/products/SOL-PUL-0012-01.jpeg",
+      "alt": "pulseras Infinito de Soluna"
     }
   ],
   "SOL-PUL-0013": [
@@ -212,16 +194,6 @@ export const productImagesBySku = {
       "alt": "Cadenita The Sun carta Tarot de Soluna"
     }
   ],
-  "SOL-CAD-0013": [
-    {
-      "src": "/images/products/SOL-CAD-0013-01.jpg",
-      "alt": "Cadenita Virgencita de Guadalupe de Soluna"
-    },
-    {
-      "src": "/images/products/SOL-CAD-0013-02.jpg",
-      "alt": "Cadenita Virgencita de Guadalupe de Soluna"
-    }
-  ],
   "SOL-CAD-0014": [
     {
       "src": "/images/products/SOL-CAD-0014-01.jpg",
@@ -254,6 +226,66 @@ export const productImagesBySku = {
     {
       "src": "/images/products/SOL-ANI-0005-01.jpg",
       "alt": "Anillos dorados de acero quirurgico de Soluna"
+    }
+  ],
+  "SOL-CMB-0002": [
+    {
+      "src": "/images/products/SOL-CMB-0002-01.jpeg",
+      "alt": "Combo Pulsera bañada en plata 925 + Charm 925 a elección! de Soluna"
+    }
+  ],
+  "SOL-CMB-0003": [
+    {
+      "src": "/images/products/SOL-CMB-0003-01.jpeg",
+      "alt": "Combo 2 Charms de plata 925 de Soluna"
+    }
+  ],
+  "SOL-CAD-0015": [
+    {
+      "src": "/images/products/SOL-CAD-0015-01.jpeg",
+      "alt": "Cadenita infinito dorada de Soluna"
+    }
+  ],
+  "SOL-CHA-0017": [
+    {
+      "src": "/images/products/SOL-CHA-0017-01.jpeg",
+      "alt": "Charm Stitch clasico de Soluna"
+    }
+  ],
+  "SOL-CHA-0018": [
+    {
+      "src": "/images/products/SOL-CHA-0018-01.jpeg",
+      "alt": "charm sticth estudiante de Soluna"
+    }
+  ],
+  "SOL-CAD-0016": [
+    {
+      "src": "/images/products/SOL-CAD-0016-01.jpeg",
+      "alt": "cadenita Ojo Turco Doble de Soluna"
+    }
+  ],
+  "SOL-CAD-0017": [
+    {
+      "src": "/images/products/SOL-CAD-0017-01.jpeg",
+      "alt": "cadenita Tarot The Moon de Soluna"
+    }
+  ],
+  "SOL-CHA-0019": [
+    {
+      "src": "/images/products/SOL-CHA-0019-01.jpeg",
+      "alt": "Charm carroza Cenicienta de Soluna"
+    }
+  ],
+  "SOL-CAD-0018": [
+    {
+      "src": "/images/products/SOL-CAD-0018-01.jpeg",
+      "alt": "Cadenita de Plata 925 de Soluna"
+    }
+  ],
+  "SOL-PUL-0019": [
+    {
+      "src": "/images/products/SOL-PUL-0019-01.jpeg",
+      "alt": "Pulsera tipo Pandora plateada de Soluna"
     }
   ]
 } as const satisfies Record<string, ProductImage[]>;
